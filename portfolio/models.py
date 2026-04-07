@@ -83,7 +83,7 @@ class Projeto(models.Model):
 
 class TFC(models.Model):
     titulo = models.CharField(max_length=200)
-    palavras_chave = models.CharField(max_length=200)
+    palavras_chave = models.CharField(max_length=200,blank=True,null=True)
     autor = models.CharField(max_length=200)
     curso = models.CharField(max_length=200)
     imagem = models.ImageField(upload_to='tfcs/')
@@ -93,7 +93,6 @@ class TFC(models.Model):
     destaque = models.BooleanField(default=False)
     areas = models.ManyToManyField(Area, related_name='tfcs')
     tecnologias = models.ManyToManyField(Tecnologia, related_name='tfcs')
-    contribuidores = models.ManyToManyField(Contribuidor, related_name='tfcs_colaborados')
     docentes_orientadores = models.ManyToManyField(Docente, related_name='tfcs_orientados')
 
     def __str__(self):

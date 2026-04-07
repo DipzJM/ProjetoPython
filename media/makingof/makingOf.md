@@ -142,3 +142,8 @@ No desenho do **Diagrama Entidade-Relação (ER)**, foram definidas as seguintes
 * **Decisão 3 (Imagem: `Decisoes/Decisao_3`) Criação da entidade "Contribuidor" e relação com projetos e TFCS:** Após alguma revisão da minha parte optei por criar a entidade 'Contribuidor' pois um projeto ou um TFC podem ter um ou mais contribudores , e esses mesmos contribudores podem estar presentes em vários projetos/TFCs esta ideia vêm do Linkedin (`Ideias/ideiaContribuidor`) (Com esta decisão foi alterado a modelação entre entidades representação em imagem: `Modelacao/realacoesEntidadesV2`e `Modelacao/atributosEntidadesV2`)
 
 * **Decisão 4 (Imagem: `Decisoes/Decisao_4`) Manter o atributo 'Autor' na entidade 'Projeto' e 'TFC': ** Optei por manter o campo Autor e a relação Contribuidores em separado para distinguir a autoria principal da colaboração secundária. O Autor é o dono do projeto, enquanto os Contribuidores são a equipa que auxiliou no desenvolvimento.
+
+* **Decisão 5 (Imagem: `Decisoes/Decisao_5`) Não conter a relação TFC -> Contribiudor: ** No momento da importação dos TFCS para a base de dados conclui que não existia um campo de 'Contruibuidores' apenas tem o campo 'autor' com isto, decidi eliminar a relação entre estas duas entidades. As alterações a estas mudanças foram realizadas no 'models.py' e no modelo ER cf imagem (`Modelacao/relacoesEntidadesV3`)
+
+* **Decisão 6 Inserir o campo 'palavras_chave' da entidade 'TFC' para aceitar valores nulos: ** Ao tentar dar run á script estava a dar alguns erros na importação , com a ajuda de AI consegui entender o erro e perceber que havia TFCS no ficheiro JSON sem palavras_chave! com esta informação inserir o campo 'palavras_chave' da entidade 'TFC' para aceitar valores nulos.
+
