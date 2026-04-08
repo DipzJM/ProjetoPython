@@ -27,6 +27,7 @@ class Area(models.Model):
 
 class Contribuidor(models.Model):
     nome = models.CharField(max_length=200)
+    pagina_pessoal = models.URLField(verbose_name="LinkedIn ou Site", blank=True)
 
     def __str__(self):
         return self.nome
@@ -80,7 +81,7 @@ class Projeto(models.Model):
     descricao = models.TextField()
     imagem = models.ImageField(upload_to='projetos/')
     github = models.URLField(blank=True)
-    video = models.URLField(blank=True)
+    video = models.URLField(blank=True,null = True)
     tecnologias = models.ManyToManyField(Tecnologia, related_name='projetos')
     contribuidores = models.ManyToManyField(Contribuidor, related_name='projetos_colaborados')
 
@@ -122,7 +123,7 @@ class MakingOf(models.Model):
     decisoes = models.TextField()
     erros_correcoes = models.TextField()
     uso_ai = models.TextField(verbose_name="Uso de IA")
-    foto = models.ImageField(upload_to='making_of/')
+    foto = models.ImageField(upload_to='making_of/',blank=True,null=True)
 
     def __str__(self):
         return f"Processo: {self.fase}"

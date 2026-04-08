@@ -124,7 +124,7 @@ No desenho do **Diagrama Entidade-Relação (ER)**, foram definidas as seguintes
 * **Decisão:** Distinção entre `Autor` e `Contribuidor`.
     * **Justificação:** Separa a responsabilidade principal  da colaboração técnica.
 
-### 11. Making Of (Obrigatório)
+### 11. Making Of
 * **Decisão:** Atributo `Uso AI`.
     * **Justificação:** Serve para documentar como as ferramentas de IA auxiliaram na estruturação e no desenvolvimento do projeto.
 * **Decisão:** Atributo `Erros/Correções`.
