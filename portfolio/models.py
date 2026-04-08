@@ -54,16 +54,22 @@ class Licenciatura(models.Model):
         return self.nome
 
 class UnidadeCurricular(models.Model):
-    licenciatura = models.ForeignKey(Licenciatura, on_delete=models.CASCADE, related_name='UCS')
+    licenciatura = models.ForeignKey(Licenciatura, on_delete=models.CASCADE, related_name='ucs')
     nome = models.CharField(max_length=200)
+    codigo_uc = models.IntegerField(unique=True, null=True)
     ano = models.IntegerField()
-    semestre = models.IntegerField()
+    semestre = models.CharField(max_length=20)
     ects = models.IntegerField()
+    objetivos = models.TextField(blank=True)
+    curricularIUnitReadableCode = models.TextField(blank=True)
+    programa = models.TextField(blank=True)
+    bibliografia = models.TextField(blank=True)
+    metodologia = models.TextField(blank=True)
     imagem = models.ImageField(upload_to='ucs/', blank=True)
-    docentes = models.ManyToManyField(Docente, related_name='ucs')
+    docentes = models.ManyToManyField('Docente', related_name='ucs')
 
     def __str__(self):
-        return self.nome
+        return f"{self.nome} ({self.licenciatura.nome})"
 
 class Projeto(models.Model):
     uc = models.ForeignKey(UnidadeCurricular, on_delete=models.CASCADE, related_name='projetos')
