@@ -1,0 +1,87 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Título do Projeto</label>
+            <input type="text" class="form-control" placeholder="Insira o título" name="titulo" required>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Unidade Curricular</label>
+            <select class="form-select" name="uc" required>
+                {% for uc in ucs %}
+                    <option value="{{ uc.id }}">{{ uc.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Curso</label>
+            <input type="text" class="form-control" name="curso" required>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Autor</label>
+            <input type="text" class="form-control" name="autor" required>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Conceitos</label>
+        <textarea class="form-control" rows="2" name="conceitos" placeholder="Principais conceitos aplicados"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Descrição Completa</label>
+        <textarea class="form-control" rows="4" name="descricao" required></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Imagem do Projeto</label>
+        <input type="file" class="form-control" name="imagem" accept="image/*" required>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Link GitHub</label>
+            <input type="url" class="form-control" name="github" placeholder="https://github.com/...">
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Link Vídeo (YouTube/Vimeo)</label>
+            <input type="url" class="form-control" name="video" placeholder="https://youtube.com/...">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Tecnologias</label>
+            <select class="form-select" name="tecnologias" multiple>
+                {% for tecnologia in tecnologias %}
+                    <option value="{{ tecnologia.id }}">{{ tecnologia.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Contribuidores</label>
+            <select class="form-select" name="contribuidores" multiple>
+                {% for contribuidor in contribuidores %}
+                    <option value="{{ contribuidor.id }}">{{ contribuidor.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <hr>
+    <div class="d-flex justify-content-end gap-2">
+        <button type="submit" class="btn btn-primary">Guardar Projeto</button>
+    </div>
+</form>
+
+{% endblock %}

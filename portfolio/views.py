@@ -24,6 +24,10 @@ def projetos_list_view(request):
     context = {'projetos': Projeto.objects.all().prefetch_related('tecnologias', 'contribuidores')}
     return render(request, 'portfolio/projetos.html', context)
 
+def addprojeto_list_view(request):
+    context = {'ucs': UnidadeCurricular.objects.all()}
+    return render(request, 'portfolio/addprojeto.html',context)
+
 def ucs_list_view(request):
     context = {'ucs': UnidadeCurricular.objects.all().select_related('licenciatura')}
     return render(request, 'portfolio/disciplinas.html', context)

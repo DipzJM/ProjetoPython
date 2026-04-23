@@ -9,6 +9,8 @@ urlpatterns = [
     path('docentes/', views.docentes_list_view, name='docentes'),
     path('formacao/', views.formacao_list_view, name='formacao'),
     path('projetos/', views.projetos_list_view, name='projetos'),
+    path('adicionarProjetos/',views.addprojeto_list_view, name='addProjeto'),
+
     path('ucs/', views.ucs_list_view, name='unidades_curriculares'),
     path('competencias/', views.competencias_list_view, name='competencias'),
     path('tfcs/', views.tfcs_list_view, name='tfcs'),

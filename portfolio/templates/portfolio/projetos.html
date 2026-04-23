@@ -2,12 +2,16 @@
 {% load static %}
 
 {% block content %}
-<section class="projetos-header">
-    <h2>Os Meus Projetos</h2>
-    <p>Uma listagem de trabalhos realizados no âmbito das Unidades Curriculares e projetos pessoais.</p>
+<section class="projetos-header" style="display: flex; justify-content: space-between; align-items: center;">
+    <div>
+        <h2 style="margin: 0;">Os Meus Projetos</h2>
+        <p style="margin: 0;">Uma listagem de trabalhos realizados no âmbito das Unidades Curriculares e projetos pessoais.</p>
+    </div>
+    <a href="{% url 'portfolio:addProjeto' %}"><i class="fa-solid fa-plus"></i> Adicionar Projeto</a>
 </section>
 
 <div class="projetos-grid">
+    
     {% for projeto in projetos %}
     <article class="card">
         {% if projeto.imagem %}
