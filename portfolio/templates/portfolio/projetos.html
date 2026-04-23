@@ -1,0 +1,54 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="projetos-header">
+    <h2>Os Meus Projetos</h2>
+    <p>Uma listagem de trabalhos realizados no âmbito das Unidades Curriculares e projetos pessoais.</p>
+</section>
+
+<div class="projetos-grid">
+    {% for projeto in projetos %}
+    <article class="card">
+        {% if projeto.imagem %}
+            <div class="projeto-img-container">
+                <img src="{{ projeto.imagem.url }}" alt="{{ projeto.titulo }}" class="projeto-img">
+            </div>
+        {% endif %}
+
+        <div class="projeto-info">
+            <h3>{{ projeto.titulo }}</h3>
+            <p class="projeto-meta"><strong>UC:</strong> {{ projeto.uc.nome }} | <strong>Autor:</strong> {{ projeto.autor }}</p>
+            
+            <div class="projeto-descricao">
+                <p>{{ projeto.descricao }}</p>
+            </div>
+
+            <div class="projeto-conceitos">
+                <strong>Conceitos:</strong> {{ projeto.conceitos }}
+            </div>
+
+            <div class="tecnologias-tags">
+                {% for tech in projeto.tecnologias.all %}
+                    <span class="badge">{{ tech.nome }}</span>
+                {% endfor %}
+            </div>
+
+            <div class="projeto-links">
+                {% if projeto.github %}
+                    <a href="{{ projeto.github }}" target="_blank" class="btn-link github">GitHub</a>
+                {% endif %}
+                
+                {% if projeto.video %}
+                    <a href="{{ projeto.video }}" target="_blank" class="btn-link video">Ver Demo</a>
+                {% endif %}
+            </div>
+        </div>
+    </article>
+    {% empty %}
+    <div class="alert">
+        <p>Ainda não foram adicionados projetos ao portfólio.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

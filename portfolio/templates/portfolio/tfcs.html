@@ -1,0 +1,54 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<section class="page-header">
+    <h2>Trabalhos de Fim de Curso (TFC)</h2>
+    <p>Projetos de conclusão de grau e investigações académicas.</p>
+</section>
+
+<div class="tfcs-container">
+    {% for tfc in tfcs %}
+    <article class="card tfc-card {% if tfc.destaque %}destaque{% endif %}">
+        <div class="tfc-grid">
+            <div class="tfc-image">
+                {% if tfc.imagem %}
+                    <img src="{{ tfc.imagem.url }}" alt="{{ tfc.titulo }}">
+                {% endif %}
+            </div>
+            <div class="tfc-content">
+                {% if tfc.destaque %}<span class="badge-destaque">★ Destaque</span>{% endif %}
+                <h3>{{ tfc.titulo }}</h3>
+                <p class="meta"><strong>Autor:</strong> {{ tfc.autor }} | <strong>Ano:</strong> {{ tfc.ano }}</p>
+                
+                <div class="resumo">
+                    <p>{{ tfc.resumo|truncatewords:50 }}</p>
+                </div>
+
+                <div class="tags-group">
+                    <strong>Áreas:</strong>
+                    {% for area in tfc.areas.all %}
+                        <span class="tag-area">{{ area.nome }}</span>
+                    {% endfor %}
+                </div>
+
+                <div class="orientadores">
+                    <small>Orientado por: 
+                        {% for docente in tfc.docentes_orientadores.all %}
+                            {{ docente.nome }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </small>
+                </div>
+
+                <div class="tfc-footer">
+                    {% if tfc.relatorio %}
+                        <a href="{{ tfc.relatorio.url }}" class="btn-download" download>Download Relatório (PDF)</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </article>
+    {% empty %}
+    <p>Nenhum TFC registado.</p>
+    {% endfor %}
+</div>
+{% endblock %}

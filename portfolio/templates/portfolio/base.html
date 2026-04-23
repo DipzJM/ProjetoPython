@@ -1,0 +1,39 @@
+<!-- templates/portfolio/base.html -->
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'portfolio/styles.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <title>Portfolio</title>
+</head>
+<body>
+    <header>
+        <h1>Portfolio</h1>
+        <nav>
+            <a href="{% url 'portfolio:base' %}">Início</a>
+            <a href="{% url 'portfolio:projetos' %}">Projetos</a>
+            <a href="{% url 'portfolio:unidades_curriculares' %}">Disciplinas</a>
+            <a href="{% url 'portfolio:tfcs' %}">TFCs</a>
+            <a href="{% url 'portfolio:formacao' %}">Formações</a>
+            <a href="{% url 'portfolio:tecnologias' %}">Tecnologias</a>
+            <a href="{% url 'portfolio:making_of' %}">Making Of</a>
+        </nav>
+    </header>
+
+
+    <main>
+        {% block content %}
+        <!-- Conteúdo dinâmico -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2026</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>

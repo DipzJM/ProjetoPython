@@ -1,0 +1,36 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<section class="page-header">
+    <h2>Tecnologias & Ferramentas</h2>
+    <p>O conjunto de tecnologias que utilizo para o desenvolvimento de software e projetos académicos.</p>
+</section>
+
+<div class="tech-grid">
+    {% for tech in tecnologias %}
+    <article class="card tech-card">
+        <div class="tech-icon-wrapper">
+            {% if tech.logo %}
+                <img src="{{ tech.logo.url }}" alt="Logo {{ tech.nome }}" class="tech-logo">
+            {% else %}
+                <div class="tech-placeholder">{{ tech.nome|first }}</div>
+            {% endif %}
+        </div>
+        
+        <div class="tech-content">
+            <h3>{{ tech.nome }}</h3>
+            <span class="tech-rank">{{ tech.classificacao }}</span>
+            <p>{{ tech.descricao|truncatechars:120 }}</p>
+            
+            {% if tech.website %}
+            <div class="tech-footer">
+                <a href="{{ tech.website }}" target="_blank" class="button-50">Visitar Site</a>
+            </div>
+            {% endif %}
+        </div>
+    </article>
+    {% empty %}
+    <p>Nenhuma tecnologia registada.</p>
+    {% endfor %}
+</div>
+{% endblock %}

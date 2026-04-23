@@ -1,0 +1,150 @@
+/* Configurações Gerais */
+:root {
+    --primary-color: #2563eb;    /* Azul moderno */
+    --secondary-color: #1e293b;  /* Cinza escuro para texto */
+    --background-light: #f8fafc; /* Fundo das páginas */
+    --white: #ffffff;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --border-radius: 8px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--background-light);
+    color: var(--secondary-color);
+    line-height: 1.6;
+}
+
+/* Header e Navegação */
+header {
+    background-color: var(--white);
+    padding: 1.5rem 10%;
+    box-shadow: var(--shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--secondary-color);
+    font-weight: 500;
+    margin-left: 20px;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--primary-color);
+}
+
+/* Main Content */
+main {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 20px;
+    min-height: 80vh;
+}
+
+h2 {
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    border-left: 5px solid var(--primary-color);
+    padding-left: 15px;
+}
+
+/* Estilização de Cards (Projetos, UCs, etc.) */
+.card {
+    background: var(--white);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Estilo para Imagens nos Cards */
+img {
+    border-radius: var(--border-radius);
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem;
+    background-color: var(--secondary-color);
+    color: var(--white);
+    margin-top: 3rem;
+}
+
+/* Responsividade para Telemóveis */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    nav {
+        margin-top: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    nav a {
+        margin-left: 0;
+        font-size: 0.9rem;
+    }
+}
+
+.making-of-img {
+    max-width: 400px;
+    height: auto;
+    display: block;
+    margin-top: 20px;
+    border-radius: var(--border-radius);
+    border: 1px solid #e2e8f0;
+    transition: transform 0.3s ease;
+}
+
+.making-of-img:hover {
+    transform: scale(1.03);
+    cursor: zoom-in;
+}
+
+@media (max-width: 600px) {
+
+    .making-of-img {
+
+        max-width: 100%;
+
+        margin-left: 0;
+
+        margin-right: 0;
+
+    }
+
+}

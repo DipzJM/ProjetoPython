@@ -1,0 +1,99 @@
+{% extends 'portfolio/base.html' %}
+
+
+
+{% block content %}
+
+<section class="ucs-header">
+    <h2>Disciplinas</h2>
+    <p>Listagem das Unidades Curriculares (UCs) da Licenciatura em {{ ucs.0.licenciatura.nome|default:"Engenharia" }}.</p>
+</section>
+
+<div class="table-container">
+    <table class="ucs-table">
+        <thead>
+            <tr>
+                <th>Ano/Sem</th>
+                <th>Cadeira</th>
+                <th>ECTS</th>
+                <th>Docentes</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for uc in ucs %}
+                <tr class="uc-row">
+                    <td class="text-center">
+                        <span class="ano-badge">{{ uc.ano }}º Ano</span><br>
+                        <small>{{ uc.semestre }}</small>
+                    </td>
+                    <td>
+                        <div class="uc-nome">
+                            <strong>{{ uc.nome }}</strong>
+                            {% if uc.codigo_uc %}
+                            <span class="uc-codigo">#{{ uc.codigo_uc }}</span>
+                            {% endif %}
+                        </div>
+                        <div class="uc-info-extra">
+                            <small>{{ uc.objetivos|truncatechars:100 }}</small>
+                        </div>
+                    </td>
+                    <td class="text-center">{{ uc.ects }}</td>
+                    <td>
+                        <div class="docentes-lista">
+                            {% for docente in uc.docentes.all %}
+                                <span class="docente-tag">{{ docente.nome }}</span>
+                            {% empty %}
+                                <span class="text-muted">N/A</span>
+                            {% endfor %}
+                        </div>
+                    </td>
+                    <td>
+                        <button class="button-50" onclick="toggleDetails('details-{{ uc.id }}')">Ver Programa</button>
+                    </td>
+
+                </tr>
+
+                <tr id="details-{{ uc.id }}" class="uc-details" style="display: none;">
+                    <td colspan="5">
+                        <div class="details-content">
+                            <h4>Programa e Metodologia</h4>
+                            <p><strong>Conteúdos:</strong> {{ uc.programa|default:"Sem informação disponível." }}</p>
+                            <p><strong>Metodologia:</strong> {{ uc.metodologia }}</p>
+                            {% if uc.bibliografia %}
+                                <p><strong>Bibliografia:</strong> <small>{{ uc.bibliografia }}</small></p>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">Nenhuma Unidade Curricular encontrada.</td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+
+<script>
+
+function toggleDetails(id) {
+
+    var detailsRow = document.getElementById(id);
+    if (detailsRow.style.display === "none") {
+        detailsRow.style.display = "table-row";
+    } else {
+        detailsRow.style.display = "none";
+    }
+}
+
+</script>
+
+{% endblock %}
+

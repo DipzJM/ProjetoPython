@@ -1,0 +1,49 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<section class="page-header">
+    <h2>Formação Académica e Certificações</h2>
+    <p>O meu percurso de aprendizagem e competências adquiridas.</p>
+</section>
+
+<div class="formacao-list">
+    {% for curso in formacoes %}
+    <div class="card formacao-card">
+        <div class="formacao-header">
+            <div class="formacao-anos">
+                <span class="ano-label">
+                    {{ curso.ano_inicio }} 
+                    {% if curso.ano_fim %}
+                        – {{ curso.ano_fim }}
+                    {% else %}
+                        – Presente
+                    {% endif %}
+                </span>
+            </div>
+            <div class="formacao-titulo">
+                <h3>{{ curso.titulo }}</h3>
+                <p class="instituicao">{{ curso.instituicao }}</p>
+            </div>
+        </div>
+
+        {% if curso.tecnologias.all %}
+        <div class="formacao-techs">
+            <p><small>Tecnologias exploradas:</small></p>
+            <div class="tech-badges">
+                {% for tech in curso.tecnologias.all %}
+                <span class="badge-tech">
+                    {% if tech.logo %}
+                        <img src="{{ tech.logo.url }}" alt="{{ tech.nome }}" class="mini-logo">
+                    {% endif %}
+                    {{ tech.nome }}
+                </span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    {% empty %}
+    <p class="alert">Nenhum registo de formação encontrado.</p>
+    {% endfor %}
+</div>
+{% endblock %}

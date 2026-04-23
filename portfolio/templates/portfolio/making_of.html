@@ -1,0 +1,48 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<section class="page-header">
+    <h2>Diário de Bordo: Making Of</h2>
+    <p>Registo das fases de desenvolvimento, decisões técnicas e aprendizagens.</p>
+</section>
+
+<div class="timeline">
+    {% for registo in registos %}
+    <div class="timeline-item">
+        <div class="card timeline-content">
+            <h3>Fase: {{ registo.fase }}</h3>
+            
+            <div class="section-log">
+                <h4><i class="icon">📝</i> Descrição da Opção</h4>
+                <p>{{ registo.descricao_opcao }}</p>
+            </div>
+
+            <div class="section-log">
+                <h4><i class="icon">💡</i> Decisões Tomadas</h4>
+                <p>{{ registo.decisoes }}</p>
+            </div>
+
+            <div class="section-log error-box">
+                <h4><i class="icon">⚠️</i> Erros e Correções</h4>
+                <p>{{ registo.erros_correcoes }}</p>
+            </div>
+
+            <div class="section-log ai-box">
+                <h4><i class="icon">🤖</i> Uso de IA</h4>
+                <p>{{ registo.uso_ai }}</p>
+            </div>
+
+            {% if registo.foto %}
+                <img src="{{ registo.foto.url }}" alt="Screenshot da fase {{ registo.fase }}" class="making-of-img">
+            {% endif %}
+
+            <div class="timeline-date">
+                <span><b>Data de criação:</b> {{ registo.data_registo|date:"d M Y" }}</span>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>Ainda não há registos no diário de bordo.</p>
+    {% endfor %}
+</div>
+{% endblock %}
