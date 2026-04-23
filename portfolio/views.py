@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Tecnologia,Docente,Formacao,Projeto,UnidadeCurricular,TFC,MakingOf,Competencia
+from .models import Tecnologia,Docente,Formacao,Projeto,UnidadeCurricular,TFC,MakingOf,Competencia,Contribuidor
 # Create your views here.
 def home_view(request):
     return render(request, 'portfolio/base.html')
@@ -25,7 +25,11 @@ def projetos_list_view(request):
     return render(request, 'portfolio/projetos.html', context)
 
 def addprojeto_list_view(request):
-    context = {'ucs': UnidadeCurricular.objects.all()}
+    context = {
+        'ucs': UnidadeCurricular.objects.all(),
+        'tecnologias':Tecnologia.objects.all(),
+        'contribuidores':Contribuidor.objects.all()
+    }
     return render(request, 'portfolio/addprojeto.html',context)
 
 def ucs_list_view(request):

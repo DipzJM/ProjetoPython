@@ -1,67 +1,86 @@
 {% extends 'portfolio/base.html' %}
 
 {% block content %}
-<section class="ucs-header">
-    <h2>Disciplinas</h2>
-    <p>Listagem das Unidades Curriculares da Licenciatura em {{ ucs.0.licenciatura.nome|default:"Engenharia" }}.</p>
+<section class="ucs-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+    <div>
+        <h2 style="margin: 0;">Disciplinas</h2>
+        <p style="margin: 0;">Listagem das Unidades Curriculares da Licenciatura em {{ ucs.0.licenciatura.nome|default:"Engenharia" }}.</p>
+    </div>
+    <a href="" class="btn btn-primary">
+        <i class="fa-solid fa-plus"></i> Adicionar UC
+    </a>
 </section>
 
 <div class="accordion accordion-flush" id="accordionDisciplinas">
     {% for uc in ucs %}
     <div class="accordion-item shadow-sm mb-3" style="border: 1px solid #eee; border-radius: 8px;">
-        <h2 class="accordion-header" id="heading-{{ uc.id }}">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ uc.id }}" aria-expanded="false" aria-controls="collapse-{{ uc.id }}">
-                <div class="d-flex justify-content-between w-100 align-items-center">
-                    <span>
-                        <span class="badge bg-primary me-2">{{ uc.ano }}º Ano</span>
-                        <strong>{{ uc.nome }}</strong>
-                    </span>
-                    <span class="text-muted me-3"><small>{{ uc.ects }} ECTS</small></span>
-                </div>
-            </button>
-        </h2>
-        
-        <div id="collapse-{{ uc.id }}" class="accordion-collapse collapse" aria-labelledby="heading-{{ uc.id }}" data-bs-parent="#accordionDisciplinas">
-            <div class="accordion-body">
-                <div class="row">
-                    <div class="col-md-8">
-                        <h5><i class="fa-solid fa-book-open me-2"></i>Programa e Metodologia</h5>
-                        <p><strong>Conteúdos:</strong> {{ uc.programa|default:"Sem informação disponível." }}</p>
-                        <p><strong>Metodologia:</strong> {{ uc.metodologia }}</p>
-                        
-                        {% if uc.bibliografia %}
-                            <p><strong>Bibliografia:</strong> <br><small class="text-secondary">{{ uc.bibliografia }}</small></p>
-                        {% endif %}
+    <h2 class="accordion-header" id="heading-{{ uc.id }}">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ uc.id }}" aria-expanded="false" aria-controls="collapse-{{ uc.id }}">
+            <div class="d-flex justify-content-between w-100 align-items-center">
+                <span>
+                    <span class="badge bg-primary me-2">{{ uc.ano }}º Ano</span>
+                    <strong>{{ uc.nome }}</strong>
+                </span>
+
+                <div class="d-flex align-items-center">
+                    <div class="me-3">
+                        <a href="" class="btn btn-sm btn-outline-primary py-0 px-2" title="Editar">
+                            <i class="fa-solid fa-marker"></i>
+                        </a>
+                        <a href="" class="btn btn-sm btn-outline-danger py-0 px-2" title="Apagar">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </a>
                     </div>
                     
-                    <div class="col-md-4 border-start">
-                        <h5><i class="fa-solid fa-user-tie me-2"></i>Docentes</h5>
-                        <div class="docentes-lista">
-                            {% for docente in uc.docentes.all %}
-                                <span class="docente-tag d-block mb-1">
-                                    {% if docente.foto %}
-                                        <img src="{{ docente.foto.url }}" 
-                                            alt="{{ docente.nome }}" 
-                                            class="docente-avatar me-2" 
-                                            style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;">
-                                    {% else %}
-                                        <i class="fa-solid fa-user-circle fa-2x me-2 text-secondary"></i>
-                                    {% endif %}
+                    <span class="text-muted me-3">
+                        <small>{{ uc.ects }} ECTS</small>
+                    </span>
+                </div>
+            </div>
+        </button>
+    </h2>
+
+    <div id="collapse-{{ uc.id }}" class="accordion-collapse collapse" aria-labelledby="heading-{{ uc.id }}" data-bs-parent="#accordionDisciplinas">
+        <div class="accordion-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <h5><i class="fa-solid fa-book-open me-2"></i>Programa e Metodologia</h5>
+                    <p><strong>Conteúdos:</strong> {{ uc.programa|default:"Sem informação disponível." }}</p>
+                    <p><strong>Metodologia:</strong> {{ uc.metodologia }}</p>
+                    
+                    {% if uc.bibliografia %}
+                        <p><strong>Bibliografia:</strong> <br><small class="text-secondary">{{ uc.bibliografia }}</small></p>
+                    {% endif %}
+                </div>
+                
+                <div class="col-md-4 border-start">
+                    <h5><i class="fa-solid fa-user-tie me-2"></i>Docentes</h5>
+                    <div class="docentes-lista">
+                        {% for docente in uc.docentes.all %}
+                            <div class="d-flex align-items-center mb-2">
+                                {% if docente.foto %}
+                                    <img src="{{ docente.foto.url }}" alt="{{ docente.nome }}" class="me-2" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                                {% else %}
+                                    <i class="fa-solid fa-user-circle fa-2x me-2 text-secondary"></i>
+                                {% endif %}
+                                <span>
+                                    {{ docente.nome }} 
+                                    <a href="{{docente.pagina_pessoal}}" target="_blank"><i class="fa-solid fa-up-right-from-square ms-1" style="font-size: 0.8rem;"></i></a>
                                 </span>
-                                {{ docente.nome }} <a href="{{docente.pagina_pessoal}}" target="_blank"><i class="fa-solid fa-up-right-from-square"></i></a>
-                            {% empty %}
-                                <span class="text-muted">N/A</span>
-                            {% endfor %}
-                        </div>
-                        <hr>
-                        <p><small><strong>Semestre:</strong> {{ uc.semestre }}</small></p>
-                        {% if uc.codigo_uc %}
-                            <p><small><strong>Código UC:</strong> #{{ uc.codigo_uc }}</small></p>
-                        {% endif %}
+                            </div>
+                        {% empty %}
+                            <span class="text-muted">N/A</span>
+                        {% endfor %}
                     </div>
+                    <hr>
+                    <p><small><strong>Semestre:</strong> {{ uc.semestre }}º Semestre</small></p>
+                    {% if uc.codigo_uc %}
+                        <p><small><strong>Código UC:</strong> #{{ uc.codigo_uc }}</small></p>
+                    {% endif %}
                 </div>
             </div>
         </div>
+    </div>
     </div>
     {% empty %}
     <div class="alert alert-info">Nenhuma Unidade Curricular encontrada.</div>

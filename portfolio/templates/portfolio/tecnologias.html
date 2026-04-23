@@ -1,32 +1,57 @@
 {% extends 'portfolio/base.html' %}
 
 {% block content %}
-<section class="page-header">
-    <h2>Tecnologias & Ferramentas</h2>
-    <p>O conjunto de tecnologias que utilizo para o desenvolvimento de software e projetos académicos.</p>
+<section class="page-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+    <h2  style="margin: 0;">Tecnologias & Ferramentas</h2>
+    <p  style="margin: 0;">O conjunto de tecnologias que utilizo para o desenvolvimento de software e projetos académicos.</p>
+    <a href="" class="btn btn-primary">
+        <i class="fa-solid fa-plus"></i> Adicionar Tecnologia
+    </a>
 </section>
 
 <div class="tech-grid">
     {% for tech in tecnologias %}
     <article class="card tech-card">
-        <div class="tech-icon-wrapper">
+        <div class="tech-icon-wrapper" style="width: 70px; height: 70px;">
             {% if tech.logo %}
-                <img src="{{ tech.logo.url }}" alt="Logo {{ tech.nome }}" class="tech-logo">
+                <img src="{{ tech.logo.url }}" alt="Logo {{ tech.nome }}" 
+                    style="width: 100%; height: 100%; object-fit: contain;">
             {% else %}
-                <div class="tech-placeholder">{{ tech.nome|first }}</div>
+                <div class="tech-placeholder" style="line-height: 50px; text-align: center;">
+                    {{ tech.nome|first }}
+                </div>
             {% endif %}
         </div>
         
         <div class="tech-content">
             <h3>{{ tech.nome }}</h3>
-            <span class="tech-rank">{{ tech.classificacao }}</span>
-            <p>{{ tech.descricao|truncatechars:120 }}</p>
+            <div class="competencia-header">
+            <h3>{{ competencia.nome }}</h3>
+            <div class="nivel-badge">
+                Nível 
+                {% if tech.classificacao %}
+                    {{ tech.classificacao }}/5
+                {% else %}
+                    0/5
+                {% endif %}
+            </div>
+        </div>
+            <p>{{ tech.descricao|truncatechars:450 }}</p>
             
             {% if tech.website %}
             <div class="tech-footer">
                 <a href="{{ tech.website }}" target="_blank" class="button-50">Visitar Site</a>
             </div>
             {% endif %}
+        </div>
+        <div class="projeto-edit-actions" style="position: absolute; top: 10px; right: 10px; z-index: 10; display: flex; gap: 5px;">
+            <a href="" class="btn btn-sm btn-primary">
+                <i class="fa-solid fa-marker"></i> Editar
+            </a>
+            
+            <a href="" class="btn btn-sm btn-danger">
+                <i class="fa-solid fa-trash-can"></i> Apagar
+            </a>
         </div>
     </article>
     {% empty %}

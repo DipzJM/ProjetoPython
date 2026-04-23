@@ -7,13 +7,14 @@
         <h2 style="margin: 0;">Os Meus Projetos</h2>
         <p style="margin: 0;">Uma listagem de trabalhos realizados no âmbito das Unidades Curriculares e projetos pessoais.</p>
     </div>
-    <a href="{% url 'portfolio:addProjeto' %}"><i class="fa-solid fa-plus"></i> Adicionar Projeto</a>
+    <a href="" class="btn btn-primary">
+        <i class="fa-solid fa-plus"></i> Adicionar Projeto
+    </a>
 </section>
 
 <div class="projetos-grid">
-    
     {% for projeto in projetos %}
-    <article class="card">
+    <article class="card position-relative"> 
         {% if projeto.imagem %}
             <div class="projeto-img-container">
                 <img src="{{ projeto.imagem.url }}" alt="{{ projeto.titulo }}" class="projeto-img">
@@ -38,8 +39,7 @@
                     <a href="{{contribuidor.pagina_pessoal}}" target="_blank">
                         <i class="fa-brands fa-linkedin"></i> 
                     </a>
-                    {{ contribuidor.nome }} {% if not forloop.last %}, {% endif %}
-                {% empty %}
+                    {{ contribuidor.nome }}{% if not forloop.last %}, {% endif %}
                 {% endfor %}
             </div>
 
@@ -51,6 +51,16 @@
                 {% if projeto.video %}
                     <a href="{{ projeto.video }}" target="_blank" class="btn-link video">Ver Demo</a>
                 {% endif %}
+            </div>
+            <div></div>
+            <div class="projeto-edit-actions" style="position: absolute; top: 10px; right: 10px; z-index: 10; display: flex; gap: 5px;">
+                <a href="" class="btn btn-sm btn-primary">
+                    <i class="fa-solid fa-marker"></i> Editar
+                </a>
+                
+                <a href="" class="btn btn-sm btn-danger">
+                    <i class="fa-solid fa-trash-can"></i> Apagar
+                </a>
             </div>
         </div>
     </article>
