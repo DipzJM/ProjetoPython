@@ -28,15 +28,20 @@
                 <strong>Conceitos:</strong> {{ projeto.conceitos }}
             </div>
 
-            <div class="tecnologias-tags">
-                {% for tech in projeto.tecnologias.all %}
-                    <span class="badge">{{ tech.nome }}</span>
+            <div class="projeto-contribuidores">
+                <strong>Contribuidores:</strong>
+                {% for contribuidor in projeto.contribuidores.all %}
+                    <a href="{{contribuidor.pagina_pessoal}}" target="_blank">
+                        <i class="fa-brands fa-linkedin"></i> 
+                    </a>
+                    {{ contribuidor.nome }} {% if not forloop.last %}, {% endif %}
+                {% empty %}
                 {% endfor %}
             </div>
 
             <div class="projeto-links">
                 {% if projeto.github %}
-                    <a href="{{ projeto.github }}" target="_blank" class="btn-link github">GitHub</a>
+                    <a href="{{ projeto.github }}" target="_blank" class="btn-link github "><i class="fa-brands fa-github fa-2x"></i></a>
                 {% endif %}
                 
                 {% if projeto.video %}

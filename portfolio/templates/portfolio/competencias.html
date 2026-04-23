@@ -1,0 +1,43 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<section class="page-header">
+    <h2>Minhas Competências</h2>
+    <p>Avaliação do meu nível de conhecimento em diferentes áreas e as tecnologias que as sustentam.</p>
+</section>
+
+<div class="competencias-grid">
+    {% for competencia in competencias %}
+    <article class="card competencia-card">
+        <div class="competencia-header">
+            <h3>{{ competencia.nome }}</h3>
+            <div class="nivel-badge">Nível {{ competencia.nivel }}/5</div>
+        </div>
+        
+        <p class="competencia-desc">{{ competencia.descricao }}</p>
+
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+
+        <div class="competencia-techs">
+            <strong>Tecnologias Relacionadas:</strong>
+            <div class="tech-tags-small">
+                {% for tech in competencia.tecnologias.all %}
+                    <span class="tech-tag-mini">
+                        {% if tech.logo %}
+                            <img src="{{ tech.logo.url }}" alt="{{ tech.nome }}">
+                        {% endif %}
+                        {{ tech.nome }}
+                    </span>
+                {% empty %}
+                    <small class="text-muted">Geral</small>
+                {% endfor %}
+            </div>
+        </div>
+    </article>
+    {% empty %}
+    <p class="alert">Nenhuma competência registada.</p>
+    {% endfor %}
+</div>
+{% endblock %}

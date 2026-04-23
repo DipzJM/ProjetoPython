@@ -10,6 +10,7 @@ urlpatterns = [
     path('formacao/', views.formacao_list_view, name='formacao'),
     path('projetos/', views.projetos_list_view, name='projetos'),
     path('ucs/', views.ucs_list_view, name='unidades_curriculares'),
+    path('competencias/', views.competencias_list_view, name='competencias'),
     path('tfcs/', views.tfcs_list_view, name='tfcs'),
     path('making-of/', views.making_of_list_view, name='making_of'),
 ]

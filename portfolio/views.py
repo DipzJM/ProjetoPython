@@ -1,11 +1,11 @@
 from django.shortcuts import render
-from .models import Tecnologia,Docente,Formacao,Projeto,UnidadeCurricular,TFC,MakingOf
+from .models import Tecnologia,Docente,Formacao,Projeto,UnidadeCurricular,TFC,MakingOf,Competencia
 # Create your views here.
 def home_view(request):
     return render(request, 'portfolio/base.html')
 
 def tecnologias_list_view(request):
-    context = {'tecnologias': Tecnologia.objects.all()}
+    context = {'tecnologias': Tecnologia.objects.filter(projetos__isnull=False).distinct()}
     return render(request, 'portfolio/tecnologias.html', context)
 
 def docentes_list_view(request):
@@ -15,6 +15,10 @@ def docentes_list_view(request):
 def formacao_list_view(request):
     context = {'formacoes': Formacao.objects.all().prefetch_related('tecnologias')}
     return render(request, 'portfolio/formacao.html', context)
+
+def competencias_list_view(request):
+    context = {'competencias': Competencia.objects.all()}
+    return render(request, 'portfolio/competencias.html', context)
 
 def projetos_list_view(request):
     context = {'projetos': Projeto.objects.all().prefetch_related('tecnologias', 'contribuidores')}

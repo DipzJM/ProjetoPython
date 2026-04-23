@@ -1,99 +1,71 @@
 {% extends 'portfolio/base.html' %}
 
-
-
 {% block content %}
-
 <section class="ucs-header">
     <h2>Disciplinas</h2>
-    <p>Listagem das Unidades Curriculares (UCs) da Licenciatura em {{ ucs.0.licenciatura.nome|default:"Engenharia" }}.</p>
+    <p>Listagem das Unidades Curriculares da Licenciatura em {{ ucs.0.licenciatura.nome|default:"Engenharia" }}.</p>
 </section>
 
-<div class="table-container">
-    <table class="ucs-table">
-        <thead>
-            <tr>
-                <th>Ano/Sem</th>
-                <th>Cadeira</th>
-                <th>ECTS</th>
-                <th>Docentes</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-
-            {% for uc in ucs %}
-                <tr class="uc-row">
-                    <td class="text-center">
-                        <span class="ano-badge">{{ uc.ano }}º Ano</span><br>
-                        <small>{{ uc.semestre }}</small>
-                    </td>
-                    <td>
-                        <div class="uc-nome">
-                            <strong>{{ uc.nome }}</strong>
-                            {% if uc.codigo_uc %}
-                            <span class="uc-codigo">#{{ uc.codigo_uc }}</span>
-                            {% endif %}
-                        </div>
-                        <div class="uc-info-extra">
-                            <small>{{ uc.objetivos|truncatechars:100 }}</small>
-                        </div>
-                    </td>
-                    <td class="text-center">{{ uc.ects }}</td>
-                    <td>
+<div class="accordion accordion-flush" id="accordionDisciplinas">
+    {% for uc in ucs %}
+    <div class="accordion-item shadow-sm mb-3" style="border: 1px solid #eee; border-radius: 8px;">
+        <h2 class="accordion-header" id="heading-{{ uc.id }}">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ uc.id }}" aria-expanded="false" aria-controls="collapse-{{ uc.id }}">
+                <div class="d-flex justify-content-between w-100 align-items-center">
+                    <span>
+                        <span class="badge bg-primary me-2">{{ uc.ano }}º Ano</span>
+                        <strong>{{ uc.nome }}</strong>
+                    </span>
+                    <span class="text-muted me-3"><small>{{ uc.ects }} ECTS</small></span>
+                </div>
+            </button>
+        </h2>
+        
+        <div id="collapse-{{ uc.id }}" class="accordion-collapse collapse" aria-labelledby="heading-{{ uc.id }}" data-bs-parent="#accordionDisciplinas">
+            <div class="accordion-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h5><i class="fa-solid fa-book-open me-2"></i>Programa e Metodologia</h5>
+                        <p><strong>Conteúdos:</strong> {{ uc.programa|default:"Sem informação disponível." }}</p>
+                        <p><strong>Metodologia:</strong> {{ uc.metodologia }}</p>
+                        
+                        {% if uc.bibliografia %}
+                            <p><strong>Bibliografia:</strong> <br><small class="text-secondary">{{ uc.bibliografia }}</small></p>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="col-md-4 border-start">
+                        <h5><i class="fa-solid fa-user-tie me-2"></i>Docentes</h5>
                         <div class="docentes-lista">
                             {% for docente in uc.docentes.all %}
-                                <span class="docente-tag">{{ docente.nome }}</span>
+                                <span class="docente-tag d-block mb-1">
+                                    {% if docente.foto %}
+                                        <img src="{{ docente.foto.url }}" 
+                                            alt="{{ docente.nome }}" 
+                                            class="docente-avatar me-2" 
+                                            style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;">
+                                    {% else %}
+                                        <i class="fa-solid fa-user-circle fa-2x me-2 text-secondary"></i>
+                                    {% endif %}
+                                </span>
+                                {{ docente.nome }} <a href="{{docente.pagina_pessoal}}" target="_blank"><i class="fa-solid fa-up-right-from-square"></i></a>
                             {% empty %}
                                 <span class="text-muted">N/A</span>
                             {% endfor %}
                         </div>
-                    </td>
-                    <td>
-                        <button class="button-50" onclick="toggleDetails('details-{{ uc.id }}')">Ver Programa</button>
-                    </td>
-
-                </tr>
-
-                <tr id="details-{{ uc.id }}" class="uc-details" style="display: none;">
-                    <td colspan="5">
-                        <div class="details-content">
-                            <h4>Programa e Metodologia</h4>
-                            <p><strong>Conteúdos:</strong> {{ uc.programa|default:"Sem informação disponível." }}</p>
-                            <p><strong>Metodologia:</strong> {{ uc.metodologia }}</p>
-                            {% if uc.bibliografia %}
-                                <p><strong>Bibliografia:</strong> <small>{{ uc.bibliografia }}</small></p>
-                            {% endif %}
-                        </div>
-                    </td>
-                </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="5" class="text-center">Nenhuma Unidade Curricular encontrada.</td>
-                </tr>
-            {% endfor %}
-
-        </tbody>
-
-    </table>
-
+                        <hr>
+                        <p><small><strong>Semestre:</strong> {{ uc.semestre }}</small></p>
+                        {% if uc.codigo_uc %}
+                            <p><small><strong>Código UC:</strong> #{{ uc.codigo_uc }}</small></p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="alert alert-info">Nenhuma Unidade Curricular encontrada.</div>
+    {% endfor %}
 </div>
 
-
-
-<script>
-
-function toggleDetails(id) {
-
-    var detailsRow = document.getElementById(id);
-    if (detailsRow.style.display === "none") {
-        detailsRow.style.display = "table-row";
-    } else {
-        detailsRow.style.display = "none";
-    }
-}
-
-</script>
-
 {% endblock %}
-
