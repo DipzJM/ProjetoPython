@@ -5,6 +5,9 @@ from .forms import ProjetoForm,FormacaoForm,TecnologiaForm,CompetenciaForm
 def home_view(request):
     return render(request, 'portfolio/base.html')
 
+def sobre_view(request):
+    return render(request, 'portfolio/sobre.html')
+
 def tecnologias_list_view(request):
     context = {'tecnologias': Tecnologia.objects.all().order_by('-id')}
     return render(request, 'portfolio/tecnologias.html', context)
