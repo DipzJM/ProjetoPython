@@ -1,12 +1,48 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import Tecnologia,Docente,Formacao,Projeto,UnidadeCurricular,TFC,MakingOf,Competencia,Contribuidor
+from .forms import ProjetoForm,FormacaoForm,TecnologiaForm,CompetenciaForm
 # Create your views here.
 def home_view(request):
     return render(request, 'portfolio/base.html')
 
 def tecnologias_list_view(request):
-    context = {'tecnologias': Tecnologia.objects.filter(projetos__isnull=False).distinct()}
+    context = {'tecnologias': Tecnologia.objects.all().order_by('-id')}
     return render(request, 'portfolio/tecnologias.html', context)
+
+def addTecnologias_list_view(request):
+    form = TecnologiaForm(request.POST or None,request.FILES)
+    if(form.is_valid()):
+        form.save()
+        return redirect('portfolio:tecnologias')
+
+    context = {
+        'form': form
+    }
+    return render(request, 'portfolio/addTecnologias.html',context)
+
+def editarTecnologias_list_view(request,id):
+    tecnologia = Tecnologia.objects.get(id=id)
+    if request.POST:
+        form = TecnologiaForm(request.POST or None, request.FILES, instance = tecnologia)
+    
+        if(form.is_valid()):
+            form.save()
+            return redirect('portfolio:tecnologias')
+    else:
+        form = TecnologiaForm(instance = tecnologia)
+    context = {'form': form,'tecnologia':tecnologia}
+    return render(request,'portfolio/editarTecnologias.html',context)
+
+def apagarTecnologias_list_view(request ,id):
+    tecnologia = Tecnologia.objects.get(id=id)
+
+    tecnologia.delete()
+
+
+    context = {'tecnologias': Tecnologia.objects.all()}
+    return render(request,'portfolio/tecnologias.html',context)
+
+
 
 def docentes_list_view(request):
     context = {'docentes': Docente.objects.all()}
@@ -16,21 +52,121 @@ def formacao_list_view(request):
     context = {'formacoes': Formacao.objects.all().prefetch_related('tecnologias')}
     return render(request, 'portfolio/formacao.html', context)
 
+def addformacao_list_view(request):
+    form = FormacaoForm(request.POST or None,request.FILES)
+    if(form.is_valid()):
+        form.save()
+        return redirect('portfolio:formacao')
+
+    context = {
+        'form': form
+    }
+    return render(request, 'portfolio/addFormacao.html',context)
+
+def editarformacao_list_view(request,id):
+    formacao = Formacao.objects.get(id=id)
+    if request.POST:
+        form = FormacaoForm(request.POST or None, request.FILES, instance = formacao)
+    
+        if(form.is_valid()):
+            form.save()
+            return redirect('portfolio:formacao')
+    else:
+        form = FormacaoForm(instance = formacao)
+    context = {'form': form,'formacao':formacao}
+    return render(request,'portfolio/editarFormacao.html',context)
+
+def apagarformacao_list_view(request ,id):
+    formacao = Formacao.objects.get(id=id)
+
+    formacao.delete()
+
+
+    context = {'formacoes': Formacao.objects.all()}
+    return render(request,'portfolio/formacao.html',context)
+
+
 def competencias_list_view(request):
     context = {'competencias': Competencia.objects.all()}
     return render(request, 'portfolio/competencias.html', context)
+
+def addCompetencias_list_view(request):
+    form = CompetenciaForm(request.POST or None,request.FILES)
+    if(form.is_valid()):
+        form.save()
+        return redirect('portfolio:competencias')
+
+    context = {
+        'form': form
+    }
+    return render(request, 'portfolio/addCompetencias.html',context)
+
+def editarCompetencias_list_view(request,id):
+    competencia = Competencia.objects.get(id=id)
+    if request.POST:
+        form = CompetenciaForm(request.POST or None, request.FILES, instance = competencia)
+    
+        if(form.is_valid()):
+            form.save()
+            return redirect('portfolio:competencias')
+    else:
+        form = CompetenciaForm(instance = competencia)
+    context = {'form': form,'competencia':competencia}
+    return render(request,'portfolio/editarCompetencias.html',context)
+
+def apagarCompetencias_list_view(request ,id):
+    competencia = Competencia.objects.get(id=id)
+
+    competencia.delete()
+
+
+    context = {'competencias': Competencia.objects.all()}
+    return render(request,'portfolio/competencias.html',context)
 
 def projetos_list_view(request):
     context = {'projetos': Projeto.objects.all().prefetch_related('tecnologias', 'contribuidores')}
     return render(request, 'portfolio/projetos.html', context)
 
 def addprojeto_list_view(request):
+    form = ProjetoForm(request.POST or None,request.FILES)
+    if(form.is_valid()):
+        form.save()
+        return redirect('portfolio:projetos')
+
     context = {
         'ucs': UnidadeCurricular.objects.all(),
         'tecnologias':Tecnologia.objects.all(),
-        'contribuidores':Contribuidor.objects.all()
+        'contribuidores':Contribuidor.objects.all(),
+        'form': form
     }
     return render(request, 'portfolio/addprojeto.html',context)
+
+def editarProjeto_list_view(request,id):
+    projeto = Projeto.objects.get(id=id)
+    if request.POST:
+        form = ProjetoForm(request.POST or None, request.FILES, instance = projeto)
+    
+        if(form.is_valid()):
+            form.save()
+            return redirect('portfolio:projetos')
+    else:
+        form = ProjetoForm(instance = projeto)
+    context = {'form': form,'projeto':projeto}
+    return render(request,'portfolio/editarProjeto.html',context)
+
+def apagarProjeto_list_view(request ,id):
+    projeto = Projeto.objects.get(id=id)
+
+    projeto.delete()
+
+
+    context = {'projetos': Projeto.objects.all().prefetch_related('tecnologias', 'contribuidores')}
+    return render(request,'portfolio/projetos.html',context)
+
+
+
+
+
 
 def ucs_list_view(request):
     context = {'ucs': UnidadeCurricular.objects.all().select_related('licenciatura')}

@@ -4,7 +4,7 @@
 <section class="page-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
     <h2 style="margin: 0;">Formação Académica/Certificações</h2>
     <p style="margin: 0;">Percurso de aprendizagem e competências adquiridas</p>
-    <a href="" class="btn btn-primary">
+    <a href="{% url 'portfolio:addformacao' %}" class="btn btn-primary">
         <i class="fa-solid fa-plus"></i> Adicionar Formação
     </a>
 </section>
@@ -44,11 +44,11 @@
             </div>
         </div>
         <div class="projeto-edit-actions" style="position: absolute; top: 10px; right: 10px; z-index: 10; display: flex; gap: 5px;">
-            <a href="" class="btn btn-sm btn-primary">
+            <a href="{% url 'portfolio:editarFormacao' curso.id %}" class="btn btn-sm btn-primary">
                 <i class="fa-solid fa-marker"></i> Editar
             </a>
             
-            <a href="" class="btn btn-sm btn-danger">
+            <a href="{% url 'portfolio:apagarFormacao' curso.id %}" class="btn btn-sm btn-danger">
                 <i class="fa-solid fa-trash-can"></i> Apagar
             </a>
         </div>
