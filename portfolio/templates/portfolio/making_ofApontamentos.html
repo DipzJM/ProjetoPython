@@ -1,0 +1,42 @@
+{% extends 'portfolio/base.html' %}
+{% load markdownify %}
+
+{% block content %}
+<style>
+    /* Garante que o conteúdo Markdown tenha espaçamento e listas visíveis */
+    .md-content ul, .md-content ol {
+        padding-left: 2rem;
+        margin-bottom: 1rem;
+    }
+    .md-content h1, .md-content h2, .md-content h3 {
+        margin-top: 1.5rem;
+        color: #333;
+    }
+    .md-content p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+    }
+</style>
+
+<div class="container mt-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'portfolio:making_of' %}">Making Of</a></li>
+            <li class="breadcrumb-item active">Apontamentos</li>
+        </ol>
+    </nav>
+    <div class="p-4 bg-white border rounded shadow-sm">
+        <div class="md-content">
+            {% if texto %}
+                {{ texto|markdownify }}
+            {% else %}
+                <p class="text-muted">Nenhum conteúdo Markdown encontrado.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="mt-4 mb-5">
+        <a href="{% url 'portfolio:making_of' %}" class="btn btn-secondary">Voltar ao Resumo</a>
+    </div>
+</div>
+{% endblock %}

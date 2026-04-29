@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from .models import Tecnologia,Docente,Formacao,Projeto,UnidadeCurricular,TFC,MakingOf,Competencia,Contribuidor
 from .forms import ProjetoForm,FormacaoForm,TecnologiaForm,CompetenciaForm
+from textwrap import dedent
 # Create your views here.
 def home_view(request):
     return render(request, 'portfolio/base.html')
@@ -182,3 +183,68 @@ def tfcs_list_view(request):
 def making_of_list_view(request):
     context = {'registos': MakingOf.objects.all().order_by('-data_registo')}
     return render(request, 'portfolio/making_of.html', context)
+
+from django.shortcuts import render
+from textwrap import dedent
+
+def makingApontamentos_of_list_view(request):
+    # Utilizamos aspas triplas e dedent para manter a formatação do ficheiro .md
+    texto = dedent("""
+        # Diário de Bordo: Making Of - Portfólio Pessoal
+
+        Este documento regista o processo de conceção, modelação e tomada de decisão para a aplicação de Portfólio Académico desenvolvida em Django.
+
+        ---
+
+        ## Registos do Trabalho em Papel
+        *Os registos visuais de suporte a este documento (fotografias do caderno e esquemas) encontram-se na pasta `/media/makingof/` do repositório.*
+
+        ### 1. Identificação de Entidades e Atributos Versão 1
+        Após a análise detalhada do enunciado e a consulta de referências (DEISI/Lusófona), identifiquei as entidades para o sistema:
+        * Licenciatura, Unidade Curricular (UC), Projetos, Tecnologias, TFCs, Formações, Competências e Making Of.
+        * **Entidades Adicionais:** Docentes e Áreas.
+
+        ---
+
+        ## Modelação de Dados e Relações
+        
+        ### Versão 1
+        * **Licenciatura (1:N) UC:** Uma licenciatura agrega várias disciplinas.
+        * **UC (1:N) Projeto:** Projetos nascem no contexto de uma disciplina.
+        * **Projeto (N:N) Tecnologia:** Relação de muitos-para-muitos entre ferramentas e trabalhos.
+        * **Docente (N:N) UC:** Uma UC pode ter vários professores e vice-versa.
+
+        ### Versão 2
+        * **Projeto (1:N) Contribuidor:** Inclusão de equipas de desenvolvimento.
+
+        ---
+
+        ## ⚖️ Justificações das Decisões de Modelação
+
+        ### 1. Licenciatura
+        * **Decisão:** Inclusão do atributo `ECTS`.
+        * **Justificação:** Decidi inserir os ECTS do Curso após análise do site da Lusófona.
+
+        ### 3. Docentes (Entidade Adicional)
+        * **Decisão:** Criação de entidade independente.
+        * **Justificação:** Evita redundância (Normalização), permitindo atualizar dados de um docente em apenas um local.
+
+        ### 5. Tecnologias
+        * **Decisão:** Relação `ManyToMany` com Projetos e TFCs.
+        * **Justificação:** Cria um sistema de filtros dinâmico no site.
+
+        ### 11. Making Of
+        * **Decisão:** Atributo `Uso AI`.
+        * **Justificação:** Serve para documentar como as ferramentas de IA auxiliaram no desenvolvimento.
+
+        ---
+
+        ## Ajustes na modelação e decisões finais
+
+        * **Decisão 3:** Criação da entidade 'Contribuidor' inspirada no modelo do LinkedIn para dar crédito a colaborações técnicas.
+        * **Decisão 5:** Remoção da relação TFC -> Contribuidor após verificar que o ficheiro JSON original apenas continha o campo 'Autor'.
+        * **Decisão 6:** Configuração do campo `palavras_chave` como nulo (`null=True`) para evitar erros na importação de dados do JSON.
+    """).strip() # .strip() remove linhas em branco desnecessárias no início e fim
+
+    context = {'texto': texto}
+    return render(request, 'portfolio/making_ofApontamentos.html', context)

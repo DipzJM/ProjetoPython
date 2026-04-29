@@ -31,4 +31,5 @@ urlpatterns = [
 
     path('tfcs/', views.tfcs_list_view, name='tfcs'),
     path('making-of/', views.making_of_list_view, name='making_of'),
+    path('making-ofApontamentos/', views.makingApontamentos_of_list_view, name='making_ofApontamentos'),
 ]
