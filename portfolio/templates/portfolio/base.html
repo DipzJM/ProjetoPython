@@ -6,24 +6,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
-    <link rel="stylesheet" href="{% static 'portfolio/styles.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'portfolio/styles.css' %}">
     <title>Portfolio</title>
 </head>
 <body>
-    <header>
-        <h1>Portfolio</h1>
-        <nav>
-            <a href="{% url 'portfolio:base' %}">Início</a>
-            <a href="{% url 'portfolio:projetos' %}">Projetos</a>
-            <a href="{% url 'portfolio:unidades_curriculares' %}">Disciplinas</a>
-            <a href="{% url 'portfolio:tfcs' %}">TFCs</a>
-            <a href="{% url 'portfolio:formacao' %}">Formações</a>
-            <a href="{% url 'portfolio:tecnologias' %}">Tecnologias</a>
-            <a href="{% url 'portfolio:competencias' %}">Competencias</a>
-            <a href="{% url 'portfolio:making_of' %}">Making Of</a>
-            <a href="{% url 'portfolio:sobre' %}">Sobre esta Aplicação</a>
-        </nav>
+    <header class="site-header">
+        <div class="site-header-inner">
+            <a href="{% url 'portfolio:base' %}" class="brand">
+                <span class="brand-mark">P</span>
+                <span class="brand-name">Portfolio</span>
+            </a>
+
+            <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+
+            <nav class="site-nav">
+                <a href="{% url 'portfolio:base' %}">Início</a>
+                <a href="{% url 'portfolio:projetos' %}">Projetos</a>
+                <a href="{% url 'portfolio:unidades_curriculares' %}">Disciplinas</a>
+                <a href="{% url 'portfolio:tfcs' %}">TFCs</a>
+                <a href="{% url 'portfolio:formacao' %}">Formação</a>
+                <a href="{% url 'portfolio:tecnologias' %}">Tecnologias</a>
+                <a href="{% url 'portfolio:competencias' %}">Competências</a>
+                <a href="{% url 'portfolio:making_of' %}">Making Of</a>
+                <a href="{% url 'portfolio:sobre' %}">Sobre</a>
+            </nav>
+        </div>
     </header>
 
 
@@ -33,10 +48,27 @@
         {% endblock %}
     </main>
 
-    <footer>
-        <p>&copy; 2026</p>
+    <footer class="site-footer">
+        <div class="site-footer-inner">
+            <span class="footer-brand">Portfolio</span>
+            <span class="footer-divider">·</span>
+            <span class="footer-meta">&copy; 2026 — Construído com Django</span>
+        </div>
     </footer>
+
     <script src="https://kit.fontawesome.com/d68abb87c8.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script>
+        (function () {
+            const toggle = document.querySelector('.nav-toggle');
+            const nav = document.querySelector('.site-nav');
+            if (!toggle || !nav) return;
+            toggle.addEventListener('click', () => {
+                const open = nav.classList.toggle('is-open');
+                toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+                toggle.classList.toggle('is-open', open);
+            });
+        })();
+    </script>
 </body>
 </html>

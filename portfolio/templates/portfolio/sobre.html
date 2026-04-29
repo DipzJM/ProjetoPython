@@ -13,8 +13,14 @@
         margin-bottom: 10px;
     }
 </style>
-
 <section class="container sobre-aplicacao mt-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'portfolio:making_of' %}">Making Of</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'portfolio:making_ofApontamentos' %}">Apontamentos</a></li>
+            <li class="breadcrumb-item active">Sobre</li>
+        </ol>
+    </nav>
     <h1 class="text-center mb-5">Sobre esta Aplicação</h1>
 
     <article>

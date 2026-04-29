@@ -1,0 +1,156 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="hero">
+    <div class="hero-eyebrow">
+        <span class="hero-dot"></span>
+        Portfolio Académico · 2026
+    </div>
+
+    <h1 class="hero-title">
+        Bem-vindo ao meu portefólio!
+    </h1>
+
+    <p class="hero-lead">
+        Aqui reúno o trabalho desenvolvido ao longo da minha carreira académica:
+        projetos, unidades curriculares, tecnologias dominadas, competências adquiridas e formação.
+    </p>
+
+    <div class="hero-actions">
+        <a href="{% url 'portfolio:projetos' %}" class="btn btn-primary">
+            Ver projetos <i class="fa-solid fa-arrow-right"></i>
+        </a>
+        <a href="{% url 'portfolio:sobre' %}" class="btn btn-secondary">
+            Sobre esta aplicação
+        </a>
+    </div>
+</section>
+
+<section class="stats">
+    <a href="{% url 'portfolio:projetos' %}" class="stat-card">
+        <span class="stat-number">{{ num_projetos }}</span>
+        <span class="stat-label">Projetos</span>
+    </a>
+    <a href="{% url 'portfolio:tecnologias' %}" class="stat-card">
+        <span class="stat-number">{{ num_tecnologias }}</span>
+        <span class="stat-label">Tecnologias</span>
+    </a>
+    <a href="{% url 'portfolio:competencias' %}" class="stat-card">
+        <span class="stat-number">{{ num_competencias }}</span>
+        <span class="stat-label">Competências</span>
+    </a>
+    <a href="{% url 'portfolio:unidades_curriculares' %}" class="stat-card">
+        <span class="stat-number">{{ num_ucs }}</span>
+        <span class="stat-label">Disciplinas</span>
+    </a>
+    <a href="{% url 'portfolio:tfcs' %}" class="stat-card">
+        <span class="stat-number">{{ num_tfcs }}</span>
+        <span class="stat-label">TFCs</span>
+    </a>
+    <a href="{% url 'portfolio:formacao' %}" class="stat-card">
+        <span class="stat-number">{{ num_formacoes }}</span>
+        <span class="stat-label">Formações</span>
+    </a>
+</section>
+
+{% if projetos_destaque %}
+<section class="home-section">
+    <header class="home-section-header">
+        <div>
+            <span class="section-eyebrow">01 / Trabalho recente</span>
+            <h2>Projetos em destaque</h2>
+        </div>
+        <a href="{% url 'portfolio:projetos' %}" class="link-arrow">
+            Ver todos <i class="fa-solid fa-arrow-right"></i>
+        </a>
+    </header>
+
+    <div class="home-projects">
+        {% for projeto in projetos_destaque %}
+        <a href="{% url 'portfolio:projetos' %}" class="home-project card">
+            {% if projeto.imagem %}
+            <div class="home-project-img">
+                <img src="{{ projeto.imagem.url }}" alt="{{ projeto.titulo }}">
+            </div>
+            {% endif %}
+            <div class="home-project-body">
+                <span class="home-project-meta">{{ projeto.uc.nome|default:"Projeto" }}</span>
+                <h3>{{ projeto.titulo }}</h3>
+                <p>{{ projeto.descricao|truncatechars:110 }}</p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+{% if tecnologias_destaque %}
+<section class="home-section">
+    <header class="home-section-header">
+        <div>
+            <span class="section-eyebrow">02 / Stack</span>
+            <h2>Tecnologias que utilizo</h2>
+        </div>
+        <a href="{% url 'portfolio:tecnologias' %}" class="link-arrow">
+            Ver todas <i class="fa-solid fa-arrow-right"></i>
+        </a>
+    </header>
+
+    <div class="tech-strip">
+        {% for tech in tecnologias_destaque %}
+        <div class="tech-chip" title="{{ tech.nome }}">
+            {% if tech.logo %}
+                <img src="{{ tech.logo.url }}" alt="{{ tech.nome }}">
+            {% else %}
+                <span class="tech-chip-fallback">{{ tech.nome|first }}</span>
+            {% endif %}
+            <span class="tech-chip-name">{{ tech.nome }}</span>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+{% if competencias_destaque %}
+<section class="home-section">
+    <header class="home-section-header">
+        <div>
+            <span class="section-eyebrow">03 / Aptidões</span>
+            <h2>Principais competências</h2>
+        </div>
+        <a href="{% url 'portfolio:competencias' %}" class="link-arrow">
+            Ver todas <i class="fa-solid fa-arrow-right"></i>
+        </a>
+    </header>
+
+    <div class="home-skills">
+        {% for c in competencias_destaque %}
+        <div class="home-skill">
+            <div class="home-skill-head">
+                <span class="home-skill-name">{{ c.nome }}</span>
+                <span class="home-skill-level">{{ c.nivel }}/5</span>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar" style="width: {% widthratio c.nivel 5 100 %}%;"></div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<section class="cta-band">
+    <div>
+        <span class="section-eyebrow">Curioso?</span>
+        <h2>Vê como esta aplicação foi construída.</h2>
+        <p>Diário de bordo, decisões técnicas, esquemas e o uso de IA durante o desenvolvimento.</p>
+    </div>
+    <div class="cta-band-actions">
+        <a href="{% url 'portfolio:making_of' %}" class="btn btn-primary">Making Of</a>
+        <a href="{% url 'portfolio:sobre' %}" class="btn btn-secondary">Sobre a aplicação</a>
+    </div>
+</section>
+
+{% endblock %}

@@ -4,7 +4,18 @@ from .forms import ProjetoForm,FormacaoForm,TecnologiaForm,CompetenciaForm
 from textwrap import dedent
 # Create your views here.
 def home_view(request):
-    return render(request, 'portfolio/base.html')
+    context = {
+        'num_projetos': Projeto.objects.count(),
+        'num_tecnologias': Tecnologia.objects.count(),
+        'num_competencias': Competencia.objects.count(),
+        'num_tfcs': TFC.objects.count(),
+        'num_formacoes': Formacao.objects.count(),
+        'num_ucs': UnidadeCurricular.objects.count(),
+        'projetos_destaque': Projeto.objects.all().order_by('-id')[:3],
+        'tecnologias_destaque': Tecnologia.objects.all()[:10],
+        'competencias_destaque': Competencia.objects.all().order_by('-nivel')[:4],
+    }
+    return render(request, 'portfolio/home.html', context)
 
 def sobre_view(request):
     return render(request, 'portfolio/sobre.html')

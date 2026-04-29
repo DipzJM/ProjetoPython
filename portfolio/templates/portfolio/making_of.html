@@ -5,6 +5,13 @@
     <h2>Diário de Bordo: Making Of</h2>
     <p>Registo das fases de desenvolvimento, decisões técnicas e aprendizagens.</p>
 </section>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active">Making Of</li>
+        <li class="breadcrumb-item"><a href="{% url 'portfolio:making_ofApontamentos' %}">Apontamentos</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'portfolio:sobre' %}">Sobre</a></li>
+    </ol>
+</nav>
 
 <div class="timeline">
     {% for registo in registos %}
