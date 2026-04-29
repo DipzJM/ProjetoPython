@@ -292,6 +292,87 @@ class MakingOf(models.Model):
         </table>
     </article>
     <hr>
+    
+    <hr>
+
+    <article>
+        <h2 class="mb-2">4. Interface e Navegação e Sistema de Rotas</h2>
+        <p class="mb-3">O ecossistema de URLs da aplicação foi desenhado seguindo as melhores práticas do Django, utilizando <strong>Namespacing</strong> (<code>portfolio:name</code>) para garantir que as referências sejam absolutas e seguras.</p>
+
+        <div class="accordion m-0 p-0" id="accordionUrls">
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBase">
+                        Páginas de Base e Documentação
+                    </button>
+                </h2>
+                <div id="collapseBase" class="accordion-collapse collapse show">
+                    <div class="accordion-body small">
+                        <ul class="mb-0">
+                            <li><code>'' (base)</code>: A página inicial (Home) que serve de ponto de entrada.</li>
+                            <li><code>'sobre/' (sobre)</code>: Página atual, com documentação técnica e vídeo tutorial.</li>
+                            <li><code>'making-of/'</code> e <code>'making-ofApontamentos/'</code>: Diário de bordo dinâmico.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseProjetos">
+                        Gestão de Projetos e TFCs
+                    </button>
+                </h2>
+                <div id="collapseProjetos" class="accordion-collapse collapse">
+                    <div class="accordion-body small">
+                        <p class="mb-2">Este grupo permite o ciclo de vida completo de um projeto:</p>
+                        <ul class="mb-0">
+                            <li><code>'projetos/'</code>: <strong>Read</strong> - Listagem com prefetch de tecnologias.</li>
+                            <li><code>'adicionarProjetos/'</code>: <strong>Create</strong> - Formulário de inserção.</li>
+                            <li><code>'editarProjetos/id'</code>: <strong>Update</strong> - Edição via Primary Key.</li>
+                            <li><code>'apagarProjeto/id'</code>: <strong>Delete</strong> - Remoção de registos.</li>
+                            <li><code>'tfcs/'</code>: Visualização de Trabalhos de Fim de Curso.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCompetencias">
+                        Tecnologias, Competências e Formação
+                    </button>
+                </h2>
+                <div id="collapseCompetencias" class="accordion-collapse collapse">
+                    <div class="accordion-body small">
+                        <ul class="mb-0">
+                            <li><code>'tecnologias/'</code>: Gestão do stack tecnológico (Adicionar/Editar/Apagar).</li>
+                            <li><code>'competencias/'</code>: Mapeamento do nível de conhecimento.</li>
+                            <li><code>'formacao/'</code>: Registo do percurso académico.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAcademica">
+                        Docentes e UCs
+                    </button>
+                </h2>
+                <div id="collapseAcademica" class="accordion-collapse collapse">
+                    <div class="accordion-body small">
+                        <ul class="mb-0">
+                            <li><code>'docentes/'</code>: Listagem de professores associados.</li>
+                            <li><code>'ucs/'</code>: Organização por Unidades Curriculares.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </article>
 
     <article>
         <h2>5. Repositório GitHub</h2>
@@ -301,6 +382,7 @@ class MakingOf(models.Model):
     </article>
 
     <hr>
+
 
     <article class="text-center pb-5">
         <h2><a href="{% url 'portfolio:making_of' %}" class="btn btn-dark btn-lg">Consultar o Making-Of Completo</a></h2>
