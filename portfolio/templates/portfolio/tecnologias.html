@@ -4,9 +4,11 @@
 <section class="page-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
     <h2  style="margin: 0;">Tecnologias & Ferramentas</h2>
     <p  style="margin: 0;">O conjunto de tecnologias que utilizo para o desenvolvimento de software e projetos académicos.</p>
+    {% if user.is_authenticated and user.groups.all.0.name == 'gestor-portfolio' %}
     <a href="{% url 'portfolio:addTecnologias'%}" class="btn btn-primary">
         <i class="fa-solid fa-plus"></i> Adicionar Tecnologia
     </a>
+    {% endif %}
 </section>
 
 <div class="tech-grid">
@@ -45,13 +47,16 @@
             {% endif %}
         </div>
         <div class="projeto-edit-actions" style="position: absolute; top: 10px; right: 10px; z-index: 10; display: flex; gap: 5px;">
+            {% if user.is_authenticated and user.groups.all.0.name == 'gestor-portfolio' %}
             <a href="{% url 'portfolio:editarTecnologias' tech.id %}" class="btn btn-sm btn-primary">
                 <i class="fa-solid fa-marker"></i> Editar
             </a>
-            
+            {% endif %}
+            {% if user.is_authenticated and user.groups.all.0.name == 'gestor-portfolio' %}
             <a href="{% url 'portfolio:apagarTecnologias' tech.id %}" class="btn btn-sm btn-danger">
                 <i class="fa-solid fa-trash-can"></i> Apagar
             </a>
+            {% endif %}
         </div>
     </article>
     {% empty %}

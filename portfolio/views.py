@@ -2,7 +2,13 @@ from django.shortcuts import render,redirect
 from .models import Tecnologia,Docente,Formacao,Projeto,UnidadeCurricular,TFC,MakingOf,Competencia,Contribuidor
 from .forms import ProjetoForm,FormacaoForm,TecnologiaForm,CompetenciaForm
 from textwrap import dedent
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
 # Create your views here.
+def e_gestor(user):
+    return user.groups.filter(name='gestor-portfolio').exists()
+
+@login_required(login_url='accounts:login')
 def home_view(request):
     context = {
         'num_projetos': Projeto.objects.count(),
@@ -16,14 +22,15 @@ def home_view(request):
         'competencias_destaque': Competencia.objects.all().order_by('-nivel')[:4],
     }
     return render(request, 'portfolio/home.html', context)
-
+@login_required(login_url='accounts:login')
 def sobre_view(request):
     return render(request, 'portfolio/sobre.html')
-
+@login_required(login_url='accounts:login')
 def tecnologias_list_view(request):
     context = {'tecnologias': Tecnologia.objects.all().order_by('-id')}
     return render(request, 'portfolio/tecnologias.html', context)
-
+@login_required(login_url='accounts:login')
+@user_passes_test(e_gestor)
 def addTecnologias_list_view(request):
     form = TecnologiaForm(request.POST or None,request.FILES)
     if(form.is_valid()):
@@ -34,7 +41,8 @@ def addTecnologias_list_view(request):
         'form': form
     }
     return render(request, 'portfolio/addTecnologias.html',context)
-
+@login_required(login_url='accounts:login')
+@user_passes_test(e_gestor)
 def editarTecnologias_list_view(request,id):
     tecnologia = Tecnologia.objects.get(id=id)
     if request.POST:
@@ -47,7 +55,8 @@ def editarTecnologias_list_view(request,id):
         form = TecnologiaForm(instance = tecnologia)
     context = {'form': form,'tecnologia':tecnologia}
     return render(request,'portfolio/editarTecnologias.html',context)
-
+@login_required(login_url='accounts:login')
+@user_passes_test(e_gestor)
 def apagarTecnologias_list_view(request ,id):
     tecnologia = Tecnologia.objects.get(id=id)
 
@@ -56,17 +65,18 @@ def apagarTecnologias_list_view(request ,id):
 
     context = {'tecnologias': Tecnologia.objects.all()}
     return render(request,'portfolio/tecnologias.html',context)
-
+@login_required(login_url='accounts:login')
 
 
 def docentes_list_view(request):
     context = {'docentes': Docente.objects.all()}
     return render(request, 'portfolio/docentes.html', context)
-
+@login_required(login_url='accounts:login')
 def formacao_list_view(request):
     context = {'formacoes': Formacao.objects.all().prefetch_related('tecnologias')}
     return render(request, 'portfolio/formacao.html', context)
-
+@login_required(login_url='accounts:login')
+@user_passes_test(e_gestor)
 def addformacao_list_view(request):
     form = FormacaoForm(request.POST or None,request.FILES)
     if(form.is_valid()):
@@ -77,7 +87,8 @@ def addformacao_list_view(request):
         'form': form
     }
     return render(request, 'portfolio/addFormacao.html',context)
-
+@login_required(login_url='accounts:login')
+@user_passes_test(e_gestor)
 def editarformacao_list_view(request,id):
     formacao = Formacao.objects.get(id=id)
     if request.POST:
@@ -90,7 +101,8 @@ def editarformacao_list_view(request,id):
         form = FormacaoForm(instance = formacao)
     context = {'form': form,'formacao':formacao}
     return render(request,'portfolio/editarFormacao.html',context)
-
+@login_required(login_url='accounts:login')
+@user_passes_test(e_gestor)
 def apagarformacao_list_view(request ,id):
     formacao = Formacao.objects.get(id=id)
 
@@ -99,12 +111,13 @@ def apagarformacao_list_view(request ,id):
 
     context = {'formacoes': Formacao.objects.all()}
     return render(request,'portfolio/formacao.html',context)
-
+@login_required(login_url='accounts:login')
 
 def competencias_list_view(request):
     context = {'competencias': Competencia.objects.all()}
     return render(request, 'portfolio/competencias.html', context)
-
+@login_required(login_url='accounts:login')
+@user_passes_test(e_gestor)
 def addCompetencias_list_view(request):
     form = CompetenciaForm(request.POST or None,request.FILES)
     if(form.is_valid()):
@@ -115,7 +128,8 @@ def addCompetencias_list_view(request):
         'form': form
     }
     return render(request, 'portfolio/addCompetencias.html',context)
-
+@login_required(login_url='accounts:login') 
+@user_passes_test(e_gestor)
 def editarCompetencias_list_view(request,id):
     competencia = Competencia.objects.get(id=id)
     if request.POST:
@@ -129,6 +143,8 @@ def editarCompetencias_list_view(request,id):
     context = {'form': form,'competencia':competencia}
     return render(request,'portfolio/editarCompetencias.html',context)
 
+@login_required(login_url='accounts:login') 
+@user_passes_test(e_gestor)
 def apagarCompetencias_list_view(request ,id):
     competencia = Competencia.objects.get(id=id)
 
@@ -138,10 +154,13 @@ def apagarCompetencias_list_view(request ,id):
     context = {'competencias': Competencia.objects.all()}
     return render(request,'portfolio/competencias.html',context)
 
+@login_required(login_url='accounts:login') 
 def projetos_list_view(request):
     context = {'projetos': Projeto.objects.all().prefetch_related('tecnologias', 'contribuidores')}
     return render(request, 'portfolio/projetos.html', context)
 
+@login_required(login_url='accounts:login') 
+@user_passes_test(e_gestor)
 def addprojeto_list_view(request):
     form = ProjetoForm(request.POST or None,request.FILES)
     if(form.is_valid()):
@@ -156,6 +175,8 @@ def addprojeto_list_view(request):
     }
     return render(request, 'portfolio/addprojeto.html',context)
 
+@login_required(login_url='accounts:login') 
+@user_passes_test(e_gestor)
 def editarProjeto_list_view(request,id):
     projeto = Projeto.objects.get(id=id)
     if request.POST:
@@ -169,6 +190,8 @@ def editarProjeto_list_view(request,id):
     context = {'form': form,'projeto':projeto}
     return render(request,'portfolio/editarProjeto.html',context)
 
+@login_required(login_url='accounts:login') 
+@user_passes_test(e_gestor)
 def apagarProjeto_list_view(request ,id):
     projeto = Projeto.objects.get(id=id)
 
@@ -183,14 +206,17 @@ def apagarProjeto_list_view(request ,id):
 
 
 
+@login_required(login_url='accounts:login') 
 def ucs_list_view(request):
     context = {'ucs': UnidadeCurricular.objects.all().select_related('licenciatura')}
     return render(request, 'portfolio/disciplinas.html', context)
 
+@login_required(login_url='accounts:login') 
 def tfcs_list_view(request):
     context = {'tfcs': TFC.objects.all().prefetch_related('docentes_orientadores', 'areas')}
     return render(request, 'portfolio/tfcs.html', context)
 
+@login_required(login_url='accounts:login') 
 def making_of_list_view(request):
     context = {'registos': MakingOf.objects.all().order_by('-data_registo')}
     return render(request, 'portfolio/making_of.html', context)
@@ -198,6 +224,7 @@ def making_of_list_view(request):
 from django.shortcuts import render
 from textwrap import dedent
 
+@login_required(login_url='accounts:login') 
 def makingApontamentos_of_list_view(request):
     # Utilizamos aspas triplas e dedent para manter a formatação do ficheiro .md
     texto = dedent("""

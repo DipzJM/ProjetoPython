@@ -4,9 +4,11 @@
 <section class="page-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
     <h2 style="margin: 0;">Minhas Competências</h2>
     <p style="margin: 0;">Avaliação do meu nível de conhecimento em diferentes áreas</p>
+    {% if user.is_authenticated and user.groups.all.0.name == 'gestor-portfolio' %}
     <a href="{% url 'portfolio:addCompetencias' %}" class="btn btn-primary">
         <i class="fa-solid fa-plus"></i> Adicionar Competência
     </a>
+    {% endif %}
 </section>
 
 <div class="competencias-grid">
@@ -39,13 +41,17 @@
             </div>
         </div>
         <div class="projeto-edit-actions" style="position: absolute; top: 10px; right: 10px; z-index: 10; display: flex; gap: 5px;">
+            
+            {% if user.is_authenticated and user.groups.all.0.name == 'gestor-portfolio' %}
             <a href="{% url 'portfolio:editarCompetencias' competencia.id %}" class="btn btn-sm btn-primary">
                 <i class="fa-solid fa-marker"></i> Editar
             </a>
-            
+            {% endif %}
+            {% if user.is_authenticated and user.groups.all.0.name == 'gestor-portfolio' %}
             <a href="{% url 'portfolio:apagarCompetencias' competencia.id %}" class="btn btn-sm btn-danger">
                 <i class="fa-solid fa-trash-can"></i> Apagar
             </a>
+            {% endif %}
         </div>
     </article>
     {% empty %}

@@ -4,9 +4,11 @@
 <section class="page-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
     <h2 style="margin: 0;">Formação Académica/Certificações</h2>
     <p style="margin: 0;">Percurso de aprendizagem e competências adquiridas</p>
+    {% if user.is_authenticated and user.groups.all.0.name == 'gestor-portfolio' %}
     <a href="{% url 'portfolio:addformacao' %}" class="btn btn-primary">
         <i class="fa-solid fa-plus"></i> Adicionar Formação
     </a>
+    {% endif %}
 </section>
 
 <div class="formacao-list">
@@ -44,13 +46,16 @@
             </div>
         </div>
         <div class="projeto-edit-actions" style="position: absolute; top: 10px; right: 10px; z-index: 10; display: flex; gap: 5px;">
+            {% if user.is_authenticated and user.groups.all.0.name == 'gestor-portfolio' %}
             <a href="{% url 'portfolio:editarFormacao' curso.id %}" class="btn btn-sm btn-primary">
                 <i class="fa-solid fa-marker"></i> Editar
             </a>
-            
+            {% endif %}
+            {% if user.is_authenticated and user.groups.all.0.name == 'gestor-portfolio' %}
             <a href="{% url 'portfolio:apagarFormacao' curso.id %}" class="btn btn-sm btn-danger">
                 <i class="fa-solid fa-trash-can"></i> Apagar
             </a>
+            {% endif %}
         </div>
         {% endif %}
     </div>

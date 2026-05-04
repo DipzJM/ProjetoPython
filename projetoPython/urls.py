@@ -16,11 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from django.views.generic import RedirectView
+app_name = 'projetoPython'
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("escola/", include("escola.urls")), 
-    path("", include("portfolio.urls")),  #  rota para app escola sem precisar de escrever "escola"
+    path("portfolio/", include("portfolio.urls")),
+    path("accounts/", include("accounts.urls")),
+    path('', RedirectView.as_view(url='/accounts/login/'), name='index')
 ]
 
 from django.conf import settings

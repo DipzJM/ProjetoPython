@@ -28,7 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+LOGIN_URL = 'accounts:login'
+LOGIN_REDIRECT_URL = 'portfolio:home'
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'portfolio',
     'escola',
     'markdownify.apps.MarkdownifyConfig',
+    'accounts',
 ]
 
 MIDDLEWARE = [
