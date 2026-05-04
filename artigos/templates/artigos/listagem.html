@@ -1,0 +1,49 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+
+{% block head_title %}{{ titulo_pagina }} · Portfolio{% endblock %}
+
+{% block content %}
+<section class="projetos-header" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+    <div>
+        <h2 style="margin: 0;">Artigos</h2>
+        <p class="text-muted" style="margin: 0.35rem 0 0;">Textos sobre tecnologia e soft skills.</p>
+    </div>
+    {% if e_autor %}
+    <a href="{% url 'artigos:criar_artigo' %}" class="btn btn-primary">
+        <i class="fa-solid fa-pen-nib"></i> Novo artigo
+    </a>
+    {% endif %}
+</section>
+
+<div class="projetos-grid">
+    {% for artigo in artigos %}
+    <article class="card position-relative">
+        {% if artigo.fotografia %}
+        <div class="projeto-img-container">
+            <img src="{{ artigo.fotografia.url }}" alt="" class="projeto-img">
+        </div>
+        {% endif %}
+        <div class="projeto-info">
+            <h3><a href="{% url 'artigos:detalhe' artigo.pk %}">{{ artigo.titulo }}</a></h3>
+            <p class="projeto-meta">
+                <strong>Autor:</strong> {{ artigo.autor.get_full_name|default:artigo.autor.username }}
+                · {{ artigo.data_criacao|date:"d M Y" }}
+                · <i class="fa-regular fa-thumbs-up"></i> {{ artigo.total_likes }}
+            </p>
+            <p class="projeto-descricao">{{ artigo.texto|truncatewords:36 }}</p>
+            {% if artigo.link_externo %}
+            <p class="mb-0"><a href="{{ artigo.link_externo }}" target="_blank" rel="noopener noreferrer" class="btn-link">Link externo</a></p>
+            {% endif %}
+        </div>
+    </article>
+    {% empty %}
+    <div class="alert">
+        <p>Ainda não existem artigos publicados.</p>
+        {% if e_autor %}
+        <p class="mb-0"><a href="{% url 'artigos:criar_artigo' %}">Sê o primeiro a publicar.</a></p>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

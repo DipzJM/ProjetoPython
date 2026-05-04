@@ -7,15 +7,17 @@ from django.core.mail import send_mail
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
+from django.contrib.auth.models import Group
 
 
 def registo(request):
     form = RegistoForm(request.POST or None)
     if form.is_valid():
-        form.save()
+        user = form.save()
+        grupo_autores, created = Group.objects.get_or_create(name='autores')
+        user.groups.add(grupo_autores)
         return redirect('accounts:login')
-    context = {'form': form}
-    return render(request, 'accounts/registo.html', context)
+    return render(request, 'accounts/registo.html', {'form': form})
 
 def login_view(request):
     if request.method == "POST":

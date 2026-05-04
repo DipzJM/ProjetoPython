@@ -1,0 +1,22 @@
+{% extends 'portfolio/base.html' %}
+
+{% block head_title %}{{ titulo_pagina }} · Portfolio{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 720px; margin: 0 auto; padding: 1.75rem;">
+    <h2 class="mb-3">{{ titulo_pagina }}</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="mb-3">
+            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.help_text %}<div class="form-text">{{ field.help_text }}</div>{% endif %}
+            {% if field.errors %}<div class="text-danger small">{{ field.errors }}</div>{% endif %}
+        </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="{% url 'artigos:detalhe' artigo.pk %}" class="btn btn-link">Voltar ao artigo</a>
+    </form>
+</div>
+{% endblock %}

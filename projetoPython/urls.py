@@ -17,13 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import RedirectView
+
 app_name = 'projetoPython'
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("escola/", include("escola.urls")), 
     path("portfolio/", include("portfolio.urls")),
     path("accounts/", include("accounts.urls")),
-    path('', RedirectView.as_view(url='/accounts/login/'), name='index')
+    path('', RedirectView.as_view(url='/accounts/login/'), name='index'),
+    path("artigos/", include("artigos.urls")),
 ]
 
 from django.conf import settings

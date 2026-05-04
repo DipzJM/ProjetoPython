@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'escola',
     'markdownify.apps.MarkdownifyConfig',
     'accounts',
+    'artigos',
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
