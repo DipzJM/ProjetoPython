@@ -9,4 +9,14 @@
     <button type="submit">Entrar</button>
 </form>
 {% if mensagem %} <p style="color:red">{{ mensagem }}</p> {% endif %}
+
+<hr>
+
+<h3>Ou entra com Link Mágico</h3>
+
+<form action="{% url 'accounts:send_magic_link' %}" method="POST">
+    {% csrf_token %}
+    <input type="email" name="email" placeholder="O teu e-mail" required>
+    <button type="submit">Enviar Link por E-mail</button>
+</form>
 {% endblock %}
