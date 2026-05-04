@@ -3,7 +3,6 @@ from django.contrib.contenttypes.models import ContentType
 
 
 def criar_grupo_autores_apos_migracao(sender, app_config, **kwargs):
-    """Garante o grupo «autores» com permissões para publicar e editar artigos."""
     if app_config.label != "artigos":
         return
     from .models import Artigo
