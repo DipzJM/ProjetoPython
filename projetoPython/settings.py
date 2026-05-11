@@ -145,7 +145,19 @@ STATIC_URL = 'static/'
 
 STATIC_ROOT= BASE_DIR / 'staticfiles'
 
+import environ
 import os
+
+# inicializar environ
+env = environ.Env()
+
+# ler ficheiro .env (opcional mas recomendado)
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
+
+## definicao da base de dados psql em Neon
+DATABASES = {
+    "default": env.db("DATABASE_URL")
+}
 
 # Pasta no servidor onde os ficheiros vão ser guardados
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

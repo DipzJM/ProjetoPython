@@ -89,10 +89,10 @@ class Projeto(models.Model):
         return self.titulo
 
 class TFC(models.Model):
-    titulo = models.CharField(max_length=200)
-    palavras_chave = models.CharField(max_length=200,blank=True,null=True)
-    autor = models.CharField(max_length=200)
-    curso = models.CharField(max_length=200)
+    titulo = models.TextField()
+    palavras_chave = models.TextField(blank=True,null=True)
+    autor = models.CharField(max_length=300)
+    curso = models.CharField(max_length=300)
     imagem = models.ImageField(upload_to='tfcs/')
     ano = models.IntegerField()
     resumo = models.TextField()
