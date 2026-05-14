@@ -8,7 +8,6 @@ from django.contrib.auth.decorators import user_passes_test
 def e_gestor(user):
     return user.groups.filter(name='gestor-portfolio').exists()
 
-@login_required(login_url='accounts:login')
 def home_view(request):
     context = {
         'num_projetos': Projeto.objects.count(),
@@ -22,10 +21,10 @@ def home_view(request):
         'competencias_destaque': Competencia.objects.all().order_by('-nivel')[:4],
     }
     return render(request, 'portfolio/home.html', context)
-@login_required(login_url='accounts:login')
+
 def sobre_view(request):
     return render(request, 'portfolio/sobre.html')
-@login_required(login_url='accounts:login')
+
 def tecnologias_list_view(request):
     context = {'tecnologias': Tecnologia.objects.all().order_by('-id')}
     return render(request, 'portfolio/tecnologias.html', context)
@@ -65,13 +64,11 @@ def apagarTecnologias_list_view(request ,id):
 
     context = {'tecnologias': Tecnologia.objects.all()}
     return render(request,'portfolio/tecnologias.html',context)
-@login_required(login_url='accounts:login')
-
 
 def docentes_list_view(request):
     context = {'docentes': Docente.objects.all()}
     return render(request, 'portfolio/docentes.html', context)
-@login_required(login_url='accounts:login')
+
 def formacao_list_view(request):
     context = {'formacoes': Formacao.objects.all().prefetch_related('tecnologias')}
     return render(request, 'portfolio/formacao.html', context)
@@ -111,7 +108,6 @@ def apagarformacao_list_view(request ,id):
 
     context = {'formacoes': Formacao.objects.all()}
     return render(request,'portfolio/formacao.html',context)
-@login_required(login_url='accounts:login')
 
 def competencias_list_view(request):
     context = {'competencias': Competencia.objects.all()}
@@ -154,7 +150,7 @@ def apagarCompetencias_list_view(request ,id):
     context = {'competencias': Competencia.objects.all()}
     return render(request,'portfolio/competencias.html',context)
 
-@login_required(login_url='accounts:login') 
+
 def projetos_list_view(request):
     context = {'projetos': Projeto.objects.all().prefetch_related('tecnologias', 'contribuidores')}
     return render(request, 'portfolio/projetos.html', context)
@@ -206,17 +202,17 @@ def apagarProjeto_list_view(request ,id):
 
 
 
-@login_required(login_url='accounts:login') 
+
 def ucs_list_view(request):
     context = {'ucs': UnidadeCurricular.objects.all().select_related('licenciatura')}
     return render(request, 'portfolio/disciplinas.html', context)
 
-@login_required(login_url='accounts:login') 
+
 def tfcs_list_view(request):
     context = {'tfcs': TFC.objects.all().prefetch_related('docentes_orientadores', 'areas')}
     return render(request, 'portfolio/tfcs.html', context)
 
-@login_required(login_url='accounts:login') 
+
 def making_of_list_view(request):
     context = {'registos': MakingOf.objects.all().order_by('-data_registo')}
     return render(request, 'portfolio/making_of.html', context)
@@ -224,7 +220,7 @@ def making_of_list_view(request):
 from django.shortcuts import render
 from textwrap import dedent
 
-@login_required(login_url='accounts:login') 
+
 def makingApontamentos_of_list_view(request):
     # Utilizamos aspas triplas e dedent para manter a formatação do ficheiro .md
     texto = dedent("""

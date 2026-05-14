@@ -24,9 +24,9 @@ app_name = 'projetoPython'
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("escola/", include("escola.urls")), 
-    path("portfolio/", include("portfolio.urls")),
+    path("", include("portfolio.urls")),
     path("accounts/", include("accounts.urls")),
-    path('', RedirectView.as_view(url='/accounts/login/'), name='index'),
+    path('/accounts/login/', RedirectView.as_view(url='/accounts/login/'), name='index'),
     path("artigos/", include("artigos.urls")),
 ]
 
