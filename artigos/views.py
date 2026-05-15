@@ -133,7 +133,6 @@ def dar_like(request, artigo_id):
     return redirect("artigos:detalhe", artigo_id=artigo.pk)
 
 
-@login_required
 @require_POST
 def adicionar_comentario(request, artigo_id):
     artigo = get_object_or_404(
@@ -144,7 +143,7 @@ def adicionar_comentario(request, artigo_id):
     if form.is_valid():
         c = form.save(commit=False)
         c.artigo = artigo
-        c.autor = request.user
+        c.autor = request.user if request.user.is_authenticated else None
         c.save()
         messages.success(request, "Comentário adicionado.")
         return redirect("artigos:detalhe", artigo_id=artigo.pk)

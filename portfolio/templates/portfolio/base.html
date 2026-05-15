@@ -17,6 +17,7 @@
 </head>
 <body>
     <header class="site-header">
+        
         <div class="site-header-inner">
             <a href="{% url 'portfolio:base' %}" class="brand">
                 <span class="brand-mark">P</span>
@@ -48,7 +49,6 @@
         </div>
     </header>
 
-
     <main>
         {% if messages %}
         <div class="site-header-inner" style="max-width: var(--container); margin: 0 auto; padding: 0.75rem 1.5rem 0;">
@@ -63,10 +63,24 @@
     </main>
 
     <footer class="site-footer">
-        <div class="site-footer-inner">
-            <span class="footer-brand">Portfolio</span>
-            <span class="footer-divider">·</span>
-            <span class="footer-meta">&copy; 2026 — Construído com Django</span>
+        <div class="site-footer-inner d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
+            <div>
+                <span class="footer-brand">Portfolio</span>
+                <span class="footer-divider">·</span>
+                <span class="footer-meta">&copy; 2026 — Construído com Django</span>
+            </div>
+            <div class="footer-links ms-md-4 mt-2 mt-md-0 d-flex align-items-center gap-3">
+                <a href="https://github.com/DipzJM" target="_blank" rel="noopener" title="GitHub"
+                   class="text-dark" style="font-size:2.1rem;line-height:1;">
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                    <span class="visually-hidden">GitHub</span>
+                </a>
+                <a href="https://www.linkedin.com/in/jo%C3%A3o-maia-31b60427b/" target="_blank" rel="noopener" title="LinkedIn"
+                   class="text-dark" style="font-size:2.1rem;line-height:1;">
+                    <i class="fab fa-linkedin" aria-hidden="true"></i>
+                    <span class="visually-hidden">LinkedIn</span>
+                </a>
+            </div>
         </div>
     </footer>
 

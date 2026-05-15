@@ -50,7 +50,6 @@
     <section class="comentarios-secao mt-4">
         <h2 class="h4">Comentários</h2>
 
-        {% if user.is_authenticated %}
         <form method="post" action="{% url 'artigos:comentar' artigo.pk %}" class="mb-4">
             {% csrf_token %}
             <label for="id_texto" class="form-label small text-muted">O teu comentário</label>
@@ -60,14 +59,17 @@
             {% endif %}
             <button type="submit" class="btn btn-primary btn-sm mt-2">Publicar</button>
         </form>
-        {% else %}
-        <p class="text-muted"><a href="{% url 'accounts:login' %}?next={{ request.path }}">Inicia sessão</a> para comentar.</p>
-        {% endif %}
 
         <ul class="list-unstyled m-0 p-0">
             {% for comentario in artigo.comentarios.all %}
             <li class="border-top pt-3 mt-3" style="border-color: var(--hairline) !important;">
-                <strong>{{ comentario.autor.get_full_name|default:comentario.autor.username }}</strong>
+                <strong>
+                    {% if comentario.autor %}
+                        {{ comentario.autor.get_full_name|default:comentario.autor.username }}
+                    {% else %}
+                        Anónimo
+                    {% endif %}
+                </strong>
                 <span class="text-muted small">· {{ comentario.data_criacao|date:"d/m/Y H:i" }}</span>
                 <p class="mb-0 mt-1" style="white-space: pre-wrap;">{{ comentario.texto }}</p>
             </li>

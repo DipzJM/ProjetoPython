@@ -67,7 +67,11 @@ class Comentario(models.Model):
         Artigo, on_delete=models.CASCADE, related_name="comentarios"
     )
     autor = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="comentarios_artigos"
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="comentarios_artigos",
     )
     texto = models.TextField()
     data_criacao = models.DateTimeField(auto_now_add=True)

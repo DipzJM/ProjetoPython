@@ -26,7 +26,7 @@ urlpatterns = [
     path("escola/", include("escola.urls")), 
     path("", include("portfolio.urls")),
     path("accounts/", include("accounts.urls")),
-    path('/accounts/login/', RedirectView.as_view(url='/accounts/login/'), name='index'),
+    path('accounts/login/', RedirectView.as_view(url='/accounts/login/'), name='index'),
     path("artigos/", include("artigos.urls")),
 ]
 
