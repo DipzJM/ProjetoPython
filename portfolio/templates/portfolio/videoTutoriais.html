@@ -1,0 +1,67 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<section class="page-header">
+    <h2>Diário de Bordo: Making Of</h2>
+    <p>Video autoExplicativos sobre o projeto e o seu desenvolvimento</p>
+</section>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active">Video Tutoriais</li>
+        <li class="breadcrumb-item"><a href="{% url 'portfolio:making_ofApontamentos' %}">Apontamentos</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'portfolio:sobre' %}">Sobre</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'portfolio:making_of' %}">Making Of</a></li>
+    </ol>
+</nav>
+
+<div class="timeline">
+    <h3 class="mt-4">Videotutorial de desenvolvimento de aplicação Django</h3>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <a href="https://youtu.be/lOL8obF2ChE" target="_blank" class="text-decoration-none">
+                <div class="card video-card shadow-sm border-0 bg-light text-center p-5">
+                    <div class="card-body">
+                        <i class="fa-brands fa-youtube fa-5x text-danger mb-3"></i>
+                        <h4 class="card-title text-dark">Assistir Tutorial no YouTube</h4>
+                        <p class="card-text text-muted">Explicação detalhada sobre o fluxo MVT e criação de formulários dinâmicos.</p>
+                        <span class="btn btn-outline-danger">Abrir Vídeo <i class="fa-solid fa-external-link ms-1"></i></span>
+                    </div>
+                </div>
+            </a>
+            <p class="mt-2 text-center text-muted"><small><i>Figura 5: Link externo para o vídeo demonstrativo da aplicação.</i></small></p>
+        </div>
+    </div>
+    <h3 class="mt-4">Videotutorial explicativo do sistema web implementado e pipeline CI/CD</h3>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <a href="https://youtu.be/szR51mTm8os" target="_blank" class="text-decoration-none">
+                <div class="card video-card shadow-sm border-0 bg-light text-center p-5">
+                    <div class="card-body">
+                        <i class="fa-brands fa-youtube fa-5x text-danger mb-3"></i>
+                        <h4 class="card-title text-dark">Assistir Tutorial no YouTube</h4>
+                        <p class="card-text text-muted">Explicação de como funciona a pipeline de CI/CD e seus elementos chave</p>
+                        <span class="btn btn-outline-danger">Abrir Vídeo <i class="fa-solid fa-external-link ms-1"></i></span>
+                    </div>
+                </div>
+            </a>
+            <p class="mt-2 text-center text-muted"><small><i>Figura 5: Link externo para o vídeo demonstrativo da aplicação.</i></small></p>
+        </div>
+    </div>
+    <h3 class="mt-4">Videotutorial "developper em ação"</h3>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <a href="https://youtu.be/tyV4JAWineA" target="_blank" class="text-decoration-none">
+                <div class="card video-card shadow-sm border-0 bg-light text-center p-5">
+                    <div class="card-body">
+                        <i class="fa-brands fa-youtube fa-5x text-danger mb-3"></i>
+                        <h4 class="card-title text-dark">Assistir Tutorial no YouTube</h4>
+                        <p class="card-text text-muted">Explicaçãpo de todos os passos necessários para implementar uma alteração no meu projeto.</p>
+                        <span class="btn btn-outline-danger">Abrir Vídeo <i class="fa-solid fa-external-link ms-1"></i></span>
+                    </div>
+                </div>
+            </a>
+            <p class="mt-2 text-center text-muted"><small><i>Figura 5: Link externo para o vídeo demonstrativo da aplicação.</i></small></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

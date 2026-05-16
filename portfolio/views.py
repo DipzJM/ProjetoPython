@@ -199,6 +199,8 @@ def apagarProjeto_list_view(request ,id):
 
 
 
+def videoTutoriais_view(request):
+    return render(request, 'portfolio/videoTutoriais.html')
 
 
 

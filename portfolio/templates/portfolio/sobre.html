@@ -18,6 +18,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{% url 'portfolio:making_of' %}">Making Of</a></li>
             <li class="breadcrumb-item"><a href="{% url 'portfolio:making_ofApontamentos' %}">Apontamentos</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'portfolio:videoTutoriais' %}">Video Tutoriais</a></li>
             <li class="breadcrumb-item active">Sobre</li>
         </ol>
     </nav>
@@ -55,6 +56,51 @@
             </div>
         </div>
 
+        <h2>Pipeline CI/CD</h2>
+        <p>
+            O processo de desenvolvimento e entrega da aplicação assenta numa <strong>pipeline CI/CD</strong>
+            (Continuous Integration / Continuous Deployment), que automatiza desde a escrita do código
+            até à publicação em produção, garantindo qualidade, rapidez e fiabilidade.
+        </p>
+
+        <div class="row align-items-center">
+            <div class="col-md-7 esquema-box">
+                <img src="https://res.cloudinary.com/dj5ahqraa/image/upload/q_auto/f_auto/v1778928703/sistema_q7scum.avif"
+                    class="img-making-of" alt="Pipeline CI/CD">
+                <p><i>Figura 2: Esquema do fluxo de integração e entrega contínua.</i></p>
+            </div>
+            <div class="col-md-5">
+                <ul>
+                    <li>
+                        <strong>Codespaces:</strong> ambiente de desenvolvimento na cloud onde o código
+                        é escrito e testado antes de ser submetido para o repositório.
+                    </li>
+                    <li>
+                        <strong>GitHub Repository:</strong> repositório central que armazena o código-fonte
+                        e o histórico de versões através de commits.
+                    </li>
+                    <li>
+                        <strong>GitHub Actions:</strong> executa automaticamente os testes, faz o build da
+                        aplicação (imagem Docker) e prepara-a para deploy.
+                    </li>
+                    <li>
+                        <strong>Servidor de Produção:</strong> recebe a nova versão em contentor Docker
+                        e disponibiliza a aplicação aos utilizadores finais.
+                    </li>
+                    <li>
+                        <strong>Neon (PostgreSQL):</strong> base de dados relacional alojada na cloud,
+                        usada para guardar de forma persistente todos os dados da aplicação
+                        (utilizadores, competências, projetos, tecnologias, etc.).
+                    </li>
+                    <li>
+                        <strong>Cloudinary:</strong> serviço de armazenamento de média na cloud, utilizado
+                        para guardar imagens e ficheiros enviados (logos de tecnologias, fotografias de
+                        projetos, etc.), garantindo que não se perdem entre deploys e que são entregues
+                        otimizados via CDN.
+                    </li>
+                </ul>
+            </div>
+        </div>
 
         <h3 class="mt-4">Vídeo-Tutorial: Funcionamento de Formulários</h3>
         <div class="row justify-content-center">
@@ -70,6 +116,11 @@
                     </div>
                 </a>
                 <p class="mt-2 text-center text-muted"><small><i>Figura 5: Link externo para o vídeo demonstrativo da aplicação.</i></small></p>
+            </div>
+            <div class="col-12 text-center mt-4">
+                <a href="{% url 'portfolio:videoTutoriais' %}" class="btn btn-dark btn-lg">
+                    Consultar Vídeo Tutoriais
+                </a>
             </div>
         </div>
     </article>
@@ -175,10 +226,10 @@ class Projeto(models.Model):
         return self.titulo
 
 class TFC(models.Model):
-    titulo = models.CharField(max_length=200)
-    palavras_chave = models.CharField(max_length=200,blank=True,null=True)
-    autor = models.CharField(max_length=200)
-    curso = models.CharField(max_length=200)
+    titulo = models.TextField()
+    palavras_chave = models.TextField(blank=True,null=True)
+    autor = models.CharField(max_length=300)
+    curso = models.CharField(max_length=300)
     imagem = models.ImageField(upload_to='tfcs/')
     ano = models.IntegerField()
     resumo = models.TextField()
