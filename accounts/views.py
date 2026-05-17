@@ -64,7 +64,7 @@ def validar_magic_link(request, token):
         if ml_token.is_valid():
             ml_token.used = True
             ml_token.save()
-            login(request, ml_token.user)
+            login(request, ml_token.user,backend='django.contrib.auth.backends.ModelBackend')
             return redirect('portfolio:base')
     except MagicLinkToken.DoesNotExist:
         pass

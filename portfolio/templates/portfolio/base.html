@@ -39,6 +39,7 @@
                 <a href="{% url 'portfolio:making_of' %}">Making Of</a>
                 <a href="{% url 'artigos:listagem' %}">Artigos</a>
                 <a href="{% url 'portfolio:sobre' %}">Sobre</a>
+                <a href="{% url 'portfolio:videoTutoriais' %}">VideoTutoriais</a>
                 {% if user.is_authenticated%}
                 <a href="{% url 'accounts:logout' %}">Logout</a>
                 {% else %}

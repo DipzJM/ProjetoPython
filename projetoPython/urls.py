@@ -28,6 +28,7 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path('accounts/login/', RedirectView.as_view(url='/accounts/login/'), name='index'),
     path("artigos/", include("artigos.urls")),
+    path('accounts/', include('allauth.urls'))
 ]
 
 from django.conf import settings
