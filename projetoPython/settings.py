@@ -34,7 +34,7 @@ USE_X_FORWARDED_PORT = True
 
 CSRF_TRUSTED_ORIGINS = [
     'https://joaomaia22503478.pw.deisi.ulusofona.pt',
-    'https://zany-enigma-pjrgr6qx5jr9h7j7j-8000.app.github.dev',
+    'https://turbo-space-meme-g4q5qpwgv4rjhvrw5-8000.app.github.dev',
     'https://*.github.dev',
     'https://*.app.github.dev',
     'http://localhost:8000',
@@ -127,7 +127,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'projetoPython.wsgi.application'
 
 DATABASES = {
-    "default": env.db("DATABASE_URL", default="postgresql://neondb_owner:npg_ZY2ofBXIu0ch@ep-wispy-leaf-aq61nu6l-pooler.c-8.us-east-1.aws.neon.tech/neondb?sslmode=require")
+    "default": env.db("DATABASE_URL", default="")
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -143,9 +143,9 @@ USE_I18N = True
 USE_TZ = True
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': env('CLOUDINARY_CLOUD_NAME', default='dj5ahqraa'),
-    'API_KEY': env('CLOUDINARY_API_KEY', default='221665444745343'),
-    'API_SECRET': env('CLOUDINARY_API_SECRET', default='6g2NGbLw3iq2EKzsDjIIQOcUjcU'),
+    'CLOUD_NAME': env('CLOUDINARY_CLOUD_NAME', default=''),
+    'API_KEY': env('CLOUDINARY_API_KEY', default=''),
+    'API_SECRET': env('CLOUDINARY_API_SECRET', default=''),
 }
 
 STORAGES = {

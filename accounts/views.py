@@ -8,7 +8,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
 from django.contrib.auth.models import Group
-
+from django.conf import settings
 
 def registo(request):
     form = RegistoForm(request.POST or None)
@@ -41,22 +41,28 @@ def send_magic_link(request):
         try:
             user = User.objects.get(email=email)
             ml_token = MagicLinkToken.objects.create(user=user)
-            
-            link = request.build_absolute_uri(
-                reverse('accounts:validar_magic_link', args=[str(ml_token.token)])
-            )
+
+            # Gera o caminho relativo: /accounts/validar_magic_link/uuid/
+            path = reverse('accounts:validar_magic_link', args=[str(ml_token.token)])
+
+            domain = request.get_host()
+            link = f"https://{domain}{path}"
 
             email_msg = EmailMessage(
                 subject='O teu Link Magico',
-                body=f'Clica aqui: {link}',
-                from_email='noreply@portfolio.com',
+                body=f'Clica aqui para entrar: {link}',
+                from_email=settings.EMAIL_HOST_USER,
                 to=[email],
             )
             email_msg.send()
+
+            return render(request, 'accounts/login.html', {'mensagem': 'Link enviado! Verifica a tua caixa de entrada.'})
             
-            return render(request, 'accounts/login.html', {'mensagem': 'Link enviado! verifica o terminal.'})
         except User.DoesNotExist:
-            return render(request, 'accounts/login.html', {'mensagem': 'Email nao encontrado.'})
+            return render(request, 'accounts/login.html', {'mensagem': 'Email não encontrado.'})
+    
+    return render(request, 'accounts/login.html')
+
 
 def validar_magic_link(request, token):
     try:
